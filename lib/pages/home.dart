@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/components/add_log_dialog.dart';
 import 'package:logger/components/custom_app_bar.dart';
 import 'package:logger/components/custom_bottom_bar.dart';
 
@@ -28,7 +29,12 @@ class _HomePageState extends State<HomePage> {
           height: 60,
           child: FloatingActionButton(
             elevation: 4,
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => const AddLogDialog(),
+              );
+            },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
