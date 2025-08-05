@@ -22,24 +22,30 @@ class MyApp extends StatelessWidget {
       title: 'Logger',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Color.fromARGB(255, 255, 79, 24),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.black54, // default
+              color: Colors.black26, // default
             ),
           ),
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
-              color: Colors.black45, // non attivo
+              color: Colors.black26, // non attivo
             ),
           ),
           focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
-              color: Colors.black, // attivo
-              width: 1.5,
+              color: const Color.fromARGB(255, 255, 79, 24), // attivo
+              width: 1,
             ),
           ),
-          labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+          hintStyle: TextStyle(color: Colors.black26, fontSize: 14),
           contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         ),
       ),

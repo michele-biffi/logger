@@ -25,7 +25,7 @@ class _AddLogDialogState extends State<AddLogDialog> {
     return MediaQuery(
       data: MediaQuery.of(context).removeViewInsets(removeBottom: true),
       child: Dialog(
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: Colors.white,
         insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         child: Container(
           width: double.infinity,
@@ -34,56 +34,59 @@ class _AddLogDialogState extends State<AddLogDialog> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Add a Log',
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Icon(Icons.close, color: Colors.black, size: 28),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Add a Log',
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(Icons.close, color: Colors.black, size: 28),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.only(bottom: bottomPadding),
                   child: Form(
                     child: Column(
                       children: [
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Enter Log infos',
+                              'Log infos',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 15,
                                 color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: 15),
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: 'Title',
-                            labelStyle: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                            ),
+                            hintText: 'Title',
                             contentPadding: EdgeInsets.symmetric(
                               vertical: 8,
                               horizontal: 12,
                             ),
                           ),
                         ),
-                        SizedBox(height: 25),
+                        SizedBox(height: 12),
                         TextFormField(
                           maxLines: 3,
                           decoration: InputDecoration(
@@ -91,28 +94,24 @@ class _AddLogDialogState extends State<AddLogDialog> {
                               vertical: 8,
                               horizontal: 12,
                             ),
-                            labelText: 'Description',
-                            labelStyle: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                            ),
-                            alignLabelWithHint: true,
+                            hintText: 'Description',
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 35),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Enter time',
+                              'Starting time',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 15,
                                 color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -124,33 +123,30 @@ class _AddLogDialogState extends State<AddLogDialog> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 25),
+                        SizedBox(height: 35),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Enter effort',
+                              'Enter effort in min',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 15,
                                 color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 12),
+                        SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 80,
+                              width: 136,
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                  labelText: 'Effort',
-                                  labelStyle: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
+                                  hintText: 'es. 60',
                                   border: OutlineInputBorder(),
                                 ),
                                 onChanged: (value) {
@@ -158,37 +154,41 @@ class _AddLogDialogState extends State<AddLogDialog> {
                                 },
                               ),
                             ),
-                            SizedBox(width: 12),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Important',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
+                            Transform.scale(
+                              scale: 0.85,
+                              child: Switch(
+                                inactiveTrackColor: Colors.white,
+                                trackOutlineColor: WidgetStateProperty.all(
+                                  Colors.black26,
                                 ),
-                                SizedBox(width: 12),
-                                Checkbox(
-                                  checkColor: Colors.black,
-                                  fillColor: WidgetStateProperty.resolveWith(
-                                    getColor,
-                                  ),
-                                  value: isChecked,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      isChecked = value ?? false;
-                                    });
-                                  },
+                                trackOutlineWidth: WidgetStateProperty.all(1),
+                                activeTrackColor: Color.fromARGB(
+                                  255,
+                                  255,
+                                  79,
+                                  24,
                                 ),
-                              ],
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = value ?? false;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Important',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                              ),
                             ),
                           ],
                         ),
@@ -203,15 +203,17 @@ class _AddLogDialogState extends State<AddLogDialog> {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[400],
+                    backgroundColor: const Color.fromARGB(255, 255, 79, 24),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                   ),
-                  child: Text(
-                    'SAVE',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  child: Center(
+                    child: Text(
+                      'SAVE',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
                   ),
                 ),
               ),

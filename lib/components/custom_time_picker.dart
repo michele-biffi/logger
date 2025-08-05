@@ -42,7 +42,7 @@ class _TimePickerDropdownState extends State<TimePickerDropdown> {
             Expanded(
               child: DropdownMenu<int>(
                 initialSelection: _selectedHour,
-                label: Text("Ore"),
+                label: Text("hours"),
                 onSelected: (value) {
                   if (value != null) {
                     setState(() => _selectedHour = value);
@@ -53,9 +53,14 @@ class _TimePickerDropdownState extends State<TimePickerDropdown> {
                   maximumSize: WidgetStateProperty.all(
                     Size(double.infinity, 200),
                   ),
-                  visualDensity: VisualDensity.compact, // padding interno
+                  visualDensity: VisualDensity.standard,
                   padding: WidgetStateProperty.all(EdgeInsets.zero),
                   alignment: AlignmentDirectional.centerStart,
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                 ),
                 dropdownMenuEntries: List.generate(
                   24,
@@ -70,7 +75,7 @@ class _TimePickerDropdownState extends State<TimePickerDropdown> {
             Expanded(
               child: DropdownMenu<int>(
                 initialSelection: _selectedMinute,
-                label: Text("Minuti"),
+                label: Text("mins"),
                 onSelected: (value) {
                   if (value != null) {
                     setState(() => _selectedMinute = value);
@@ -81,9 +86,14 @@ class _TimePickerDropdownState extends State<TimePickerDropdown> {
                   maximumSize: WidgetStateProperty.all(
                     Size(double.infinity, 200),
                   ),
-                  visualDensity: VisualDensity.compact,
+                  visualDensity: VisualDensity.standard,
                   padding: WidgetStateProperty.all(EdgeInsets.zero),
                   alignment: AlignmentDirectional.centerStart,
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                 ),
 
                 dropdownMenuEntries: List.generate(12, (index) {
