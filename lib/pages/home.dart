@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/colors.dart';
 import 'package:logger/components/add_log_dialog.dart';
 import 'package:logger/components/custom_app_bar.dart';
 import 'package:logger/components/custom_bottom_bar.dart';
@@ -14,8 +15,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
-      backgroundColor: Colors.lime,
+      appBar: appBar(context),
+      backgroundColor: CustomColors.light,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -30,16 +31,13 @@ class _HomePageState extends State<HomePage> {
           child: FloatingActionButton(
             elevation: 4,
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => const AddLogDialog(),
-              );
+              showAddLogModal(context);
             },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
-            backgroundColor: Colors.limeAccent,
-            foregroundColor: Colors.black,
+            backgroundColor: CustomColors.orange,
+            foregroundColor: CustomColors.light,
             child: Icon(Icons.add, size: 25),
           ),
         ),

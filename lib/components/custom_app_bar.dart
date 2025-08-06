@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:logger/pages/user.dart';
 
-AppBar appBar() {
+AppBar appBar(BuildContext context) {
   return AppBar(
-    toolbarHeight: 75,
+    toolbarHeight: 70,
     backgroundColor: Colors.transparent,
     elevation: 0,
     title: null,
@@ -23,7 +24,12 @@ AppBar appBar() {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserPage()),
+                );
+              },
               child: Icon(Icons.person, color: Colors.black, size: 32),
             ),
           ],
