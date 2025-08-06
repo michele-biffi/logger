@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logger/colors.dart';
 import 'package:logger/pages/home.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: Color.fromARGB(255, 255, 79, 24),
+          cursorColor: CustomColors.orange,
         ),
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
-              color: const Color.fromARGB(255, 255, 79, 24), // attivo
+              color: CustomColors.orange, // attivo
               width: 1,
             ),
           ),
