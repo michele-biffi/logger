@@ -11,7 +11,7 @@ AppBar appBar(BuildContext context) {
     flexibleSpace: Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -30,7 +30,7 @@ AppBar appBar(BuildContext context) {
                   MaterialPageRoute(builder: (context) => UserPage()),
                 );
               },
-              child: Icon(Icons.person, color: Colors.black, size: 32),
+              child: Icon(Icons.person_sharp, color: Colors.black, size: 32),
             ),
           ],
         ),

@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.black26, // default
+              color: Colors.black38, // default
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
-              color: Colors.black26, // non attivo
+              color: Colors.black38, // non attivo
             ),
           ),
           focusedBorder: OutlineInputBorder(
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
               width: 1,
             ),
           ),
-          hintStyle: TextStyle(color: Colors.black26, fontSize: 14),
+          hintStyle: TextStyle(color: Colors.black26, fontSize: 16),
           contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         ),
       ),

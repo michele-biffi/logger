@@ -13,6 +13,15 @@ class CustomBottomBar extends StatelessWidget {
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
+        // border: Border(top: BorderSide(color: Colors.black26, width: 1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: Offset(0, -1),
+            blurRadius: 12,
+            spreadRadius: 1,
+          ),
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.only(
