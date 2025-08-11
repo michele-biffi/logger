@@ -35,7 +35,7 @@ class _AddLogFormState extends State<AddLogForm> {
         color: CustomColors.light,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      padding: EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+      padding: EdgeInsets.symmetric(vertical: 25, horizontal: 30),
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.90,
       ),
@@ -47,7 +47,7 @@ class _AddLogFormState extends State<AddLogForm> {
             children: [
               Text(
                 'Add a Log',
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
@@ -55,7 +55,7 @@ class _AddLogFormState extends State<AddLogForm> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Expanded(
             child: SingleChildScrollView(
               child: Form(
@@ -64,9 +64,9 @@ class _AddLogFormState extends State<AddLogForm> {
                   children: [
                     const SizedBox(height: 20),
                     Text(
-                      'Log infos',
+                      'Log details',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -96,7 +96,7 @@ class _AddLogFormState extends State<AddLogForm> {
                     Text(
                       'Starting time',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -108,9 +108,9 @@ class _AddLogFormState extends State<AddLogForm> {
                     ),
                     SizedBox(height: 35),
                     Text(
-                      'Enter effort in min',
+                      'Effort in minutes',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -121,7 +121,7 @@ class _AddLogFormState extends State<AddLogForm> {
                       child: TextFormField(
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          hintText: 'es. 60',
+                          hintText: 'e.g. 60',
                           border: OutlineInputBorder(),
                         ),
                         onChanged: (value) {
@@ -144,7 +144,7 @@ class _AddLogFormState extends State<AddLogForm> {
                                   if (states.contains(WidgetState.selected)) {
                                     return null;
                                   }
-                                  return Colors.black26;
+                                  return Colors.black38;
                                 }),
                             trackOutlineWidth: WidgetStateProperty.all(1),
                             activeTrackColor: CustomColors.orange,
@@ -159,11 +159,15 @@ class _AddLogFormState extends State<AddLogForm> {
                         const SizedBox(width: 8),
                         Text(
                           'Important',
-                          style: TextStyle(fontSize: 15, color: Colors.black),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 40),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
