@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
+import 'package:logger/pages/calendar_page.dart';
+import 'package:logger/pages/home.dart';
 
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({super.key});
@@ -43,7 +45,12 @@ class CustomBottomBar extends StatelessWidget {
                     color: CustomColors.dark,
                     size: 30,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
                 ),
                 IconButton(
                   icon: Icon(
@@ -51,7 +58,12 @@ class CustomBottomBar extends StatelessWidget {
                     color: CustomColors.dark,
                     size: 25,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CalendarPage()),
+                    );
+                  },
                 ),
               ],
             ),
