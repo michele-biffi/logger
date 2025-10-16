@@ -21,6 +21,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
+      backgroundColor: CustomColors.light,
       body: Column(
         children: [
           Container(
@@ -32,7 +33,7 @@ class _CalendarPageState extends State<CalendarPage> {
             ),
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 12,
+                top: 25,
                 left: 25,
                 right: 25,
                 bottom: 30,
@@ -142,9 +143,9 @@ class _CalendarPageState extends State<CalendarPage> {
           // Daily log
           Expanded(
             child: Container(
-              color: Colors.white,
+              color: CustomColors.light,
               child: ListView(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
                 children: [
                   const LogCard(
                     tag: "Workout",
