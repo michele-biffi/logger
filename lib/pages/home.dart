@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
-import 'package:logger/components/add_log_dialog.dart';
-import 'package:logger/components/custom_app_bar.dart';
 import 'package:logger/components/custom_bottom_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,35 +13,52 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context),
+      // appBar: appBar(context),
       backgroundColor: CustomColors.light,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(child: Text('homepage', style: TextStyle(fontSize: 24))),
-        ],
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: SizedBox(
-          width: 60,
-          height: 60,
-          child: FloatingActionButton(
-            elevation: 4,
-            onPressed: () {
-              showAddLogModal(context);
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          top: 60,
+          bottom: 25,
+          left: 25,
+          right: 25,
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Hello, \nMichele', //cambiare con nome dinamico
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            backgroundColor: CustomColors.orange,
-            foregroundColor: CustomColors.light,
-            child: Icon(Icons.add, size: 25),
-          ),
+          ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: CustomBottomBar(),
+      bottomNavigationBar: const CustomBottomBar(currentIndex: 0),
     );
   }
 }
+
+
+      // FLOATING BTN
+      // floatingActionButton: SizedBox(
+      //   width: 60,
+      //   height: 60,
+      //   child: FloatingActionButton(
+      //     elevation: 4,
+      //     onPressed: () {
+      //       showAddLogModal(context);
+      //     },
+      //     shape: RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.circular(40),
+      //     ),
+      //     backgroundColor: CustomColors.orange,
+      //     foregroundColor: CustomColors.light,
+      //     child: Icon(Icons.add, size: 25),
+      //   ),
+      // ),

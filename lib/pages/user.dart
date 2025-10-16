@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
-import 'package:logger/components/add_log_dialog.dart';
 import 'package:logger/components/custom_bottom_bar.dart';
 
 class UserPage extends StatelessWidget {
@@ -84,27 +83,7 @@ class UserPage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: SizedBox(
-          width: 60,
-          height: 60,
-          child: FloatingActionButton(
-            elevation: 4,
-            onPressed: () {
-              showAddLogModal(context);
-            },
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            backgroundColor: CustomColors.orange,
-            foregroundColor: CustomColors.light,
-            child: Icon(Icons.add, size: 25),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: CustomBottomBar(),
+      bottomNavigationBar: CustomBottomBar(currentIndex: 2),
     );
   }
 }

@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:logger/pages/user.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:logger/pages/home.dart';
 
 AppBar appBar(BuildContext context) {
   return AppBar(
-    toolbarHeight: 70,
+    toolbarHeight: 60,
     backgroundColor: Colors.transparent,
     elevation: 0,
     title: null,
     actions: null,
     flexibleSpace: Align(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.bottomLeft,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Hello, Michele',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserPage()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
-              child: Icon(Icons.person_sharp, color: Colors.black, size: 32),
+              child: HugeIcon(
+                icon: HugeIcons.strokeRoundedBlockchain01,
+                size: 35.0,
+                color: Colors.black,
+                strokeWidth: 2,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              'Logger', //cambiare con nome dinamico
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
