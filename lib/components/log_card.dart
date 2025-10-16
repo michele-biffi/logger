@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/colors.dart';
 
 class LogCard extends StatelessWidget {
   final String tag;
@@ -17,10 +18,11 @@ class LogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.orange.shade50,
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.transparent,
+        border: Border.all(color: CustomColors.orange, width: 1),
+        borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,24 +35,15 @@ class LogCard extends StatelessWidget {
             ),
             child: Text(
               tag,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 14),
-          ),
+          Text(description, style: const TextStyle(fontSize: 14)),
           const SizedBox(height: 6),
           Text(
             time,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.orange.shade700,
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.orange.shade700),
           ),
         ],
       ),
