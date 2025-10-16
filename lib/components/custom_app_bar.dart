@@ -1,46 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hugeicons/hugeicons.dart';
-import 'package:logger/pages/home.dart';
+import 'package:logger/colors.dart';
 
 AppBar appBar(BuildContext context) {
   return AppBar(
-    toolbarHeight: 60,
-    backgroundColor: Colors.transparent,
+    backgroundColor: CustomColors.orange,
+    toolbarHeight: 80,
     elevation: 0,
-    title: null,
-    actions: null,
-    flexibleSpace: Align(
-      alignment: Alignment.bottomLeft,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-              child: HugeIcon(
-                icon: HugeIcons.strokeRoundedBlockchain01,
-                size: 35.0,
-                color: Colors.black,
-                strokeWidth: 2,
-              ),
+    automaticallyImplyLeading: false,
+    systemOverlayStyle: const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+    leading: IconButton(
+      icon: const HugeIcon(
+        icon: HugeIcons.strokeRoundedMenu01,
+        size: 30,
+        color: Colors.white,
+        strokeWidth: 1.5,
+      ),
+      onPressed: () {
+        // Azione quando si preme il menu
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Menu pressed')));
+      },
+    ),
+    actions: [
+      Padding(
+        padding: const EdgeInsets.only(right: 20),
+        child: GestureDetector(
+          onTap: () {
+            // Azione profilo utente
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(const SnackBar(content: Text('User Settings')));
+          },
+          child: const CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.white,
+            child: HugeIcon(
+              icon: HugeIcons.strokeRoundedUser,
+              size: 30,
+              color: CustomColors.orange,
+              strokeWidth: 1.8,
             ),
-            const SizedBox(width: 8),
-            Text(
-              'Logger', //cambiare con nome dinamico
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
-    ),
+    ],
   );
 }
