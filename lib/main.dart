@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/colors.dart';
+import 'package:logger/pages/calendar_page.dart';
 import 'package:logger/pages/home.dart';
+import 'package:logger/pages/user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -51,6 +53,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: HomePage(),
+      initialRoute: '/home',
+      routes: {
+        '/home': (context) => const HomePage(),
+        '/calendar': (context) => const CalendarPage(),
+        '/profile': (context) => const UserPage(),
+      },
     );
   }
 }

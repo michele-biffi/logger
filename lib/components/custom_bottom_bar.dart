@@ -1,75 +1,132 @@
 import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
-import 'package:logger/pages/calendar_page.dart';
-import 'package:logger/pages/home.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:logger/components/add_log_dialog.dart';
 
 class CustomBottomBar extends StatelessWidget {
-  const CustomBottomBar({super.key});
+  final int currentIndex;
+
+  const CustomBottomBar({super.key, required this.currentIndex});
+
+  void _onItemTapped(BuildContext context, int index) {
+    if (index == currentIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacementNamed(context, '/home');
+        break;
+      case 1:
+        Navigator.pushReplacementNamed(context, '/calendar');
+        break;
+      case 2:
+        Navigator.pushReplacementNamed(context, '/profile');
+        break;
+      case 3:
+        showAddLogModal(context);
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final icons = [
+      HugeIcons.strokeRoundedHome04,
+      HugeIcons.strokeRoundedCalendar04,
+      HugeIcons.strokeRoundedUser,
+      HugeIcons.strokeRoundedAdd01,
+    ];
+
     return Container(
-      decoration: BoxDecoration(
-        color: Color.fromARGB(255, 250, 243, 240),
+      decoration: const BoxDecoration(
+        color: Colors.transparent,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-        // border: Border(top: BorderSide(color: Colors.black26, width: 1)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            offset: Offset(0, -1),
-            blurRadius: 12,
-            spreadRadius: 1,
-          ),
-        ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
         ),
         child: BottomAppBar(
-          height: 70,
-          color: Colors.transparent,
+          padding: const EdgeInsets.all(0),
+          height: 75,
+          color: Colors.white,
           elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.home_rounded,
-                    color: CustomColors.dark,
-                    size: 30,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(icons.length, (index) {
+              if (index == 3) {
+                return GestureDetector(
+                  onTap: () => _onItemTapped(context, index),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 25,
+                    ),
+                    decoration: BoxDecoration(
+                      color: CustomColors.orange,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        HugeIcon(
+                          icon: icons[index],
+                          size: 25,
+                          color: Colors.white,
+                          strokeWidth: 1.8,
+                        ),
+                        const SizedBox(width: 4),
+                        const Text(
+                          'Log',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                  },
+                );
+              }
+
+              final isSelected = index == currentIndex;
+
+              return IconButton(
+                onPressed: () => _onItemTapped(context, index),
+                icon: HugeIcon(
+                  icon: icons[index],
+                  size: isSelected ? 32 : 25,
+                  color: isSelected ? CustomColors.orange : Colors.black,
+                  strokeWidth: isSelected ? 1.8 : 1.5,
                 ),
-                IconButton(
-                  icon: Icon(
-                    Icons.calendar_today,
-                    color: CustomColors.dark,
-                    size: 25,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CalendarPage()),
-                    );
-                  },
-                ),
-              ],
-            ),
+              );
+            }),
           ),
         ),
       ),
     );
   }
 }
+
+// TEST
+                // IconButton(
+                //   icon: Icon(
+                //     Icons.home_rounded,
+                //     color: CustomColors.dark,
+                //     size: 30,
+                //   ),
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => HomePage()),
+                //     );
+                //   },
+                // ),
