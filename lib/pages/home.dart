@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/colors.dart';
-import 'package:logger/components/custom_bottom_bar.dart';
+import 'package:logger/components/custom_app_bar.dart';
+//import 'package:logger/components/custom_bottom_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,11 +15,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: appBar(context),
+      appBar: appBar(context),
       backgroundColor: CustomColors.light,
       body: Padding(
         padding: const EdgeInsets.only(
-          top: 60,
+          top: 40,
           bottom: 25,
           left: 25,
           right: 25,
@@ -27,19 +29,28 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 Text(
-                  'Hello, \nMichele', //cambiare con nome dinamico
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 40,
+                  'Ciao, \nMichele!', //cambiare con nome dinamico
+                  style: GoogleFonts.inter(
+                    fontSize: 35,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Text(
+                  'Il tuo weekly summary',
+                  style: TextStyle(color: Colors.black54, fontSize: 14),
                 ),
               ],
             ),
           ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomBar(currentIndex: 0),
+      // bottomNavigationBar: const CustomBottomBar(currentIndex: 0),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:logger/pages/calendar_page.dart';
 import 'package:logger/pages/home.dart';
 import 'package:logger/pages/user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.black26, fontSize: 16),
           contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         ),
+        textTheme: GoogleFonts.interTextTheme(),
       ),
       home: HomePage(),
       initialRoute: '/home',

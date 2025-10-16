@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
-import 'package:logger/components/custom_bottom_bar.dart';
+import 'package:logger/components/custom_app_bar.dart';
+// import 'package:logger/components/custom_bottom_bar.dart';
 import 'package:logger/components/log_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -14,109 +15,130 @@ class CalendarPage extends StatefulWidget {
 class _CalendarPageState extends State<CalendarPage> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  // CalendarFormat _calendarFormat = CalendarFormat.week;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.orange,
+      appBar: appBar(context),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50, left: 25, right: 25),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      _monthName(_focusedDay.month),
-                      style: const TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+          Container(
+            decoration: BoxDecoration(
+              color: CustomColors.orange, // colore di sfondo della sezione
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(30), // smussa solo il bordo inferiore
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 12,
+                left: 25,
+                right: 25,
+                bottom: 30,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        _monthName(_focusedDay.month),
+                        style: const TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
-                TableCalendar(
-                  calendarFormat: _calendarFormat,
-                  rowHeight: 48,
-                  daysOfWeekHeight: 30,
-                  firstDay: DateTime.utc(2020, 1, 1),
-                  lastDay: DateTime.utc(2030, 12, 31),
-                  focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                  onPageChanged: (focusedDay) {
-                    setState(() {
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                  onFormatChanged: (format) {},
-                  headerVisible: false,
-                  calendarStyle: CalendarStyle(
-                    tablePadding: const EdgeInsets.all(0),
-                    todayDecoration: const BoxDecoration(
-                      color: Colors.white38,
-                      shape: BoxShape.circle,
-                    ),
-                    selectedDecoration: BoxDecoration(
-                      color: Colors.orange.shade900,
-                      shape: BoxShape.circle,
-                    ),
-                    defaultTextStyle: const TextStyle(color: Colors.white),
-                    weekendTextStyle: const TextStyle(color: Colors.white),
-                    outsideDaysVisible: false,
+                    ],
                   ),
-                  daysOfWeekStyle: const DaysOfWeekStyle(
-                    weekdayStyle: TextStyle(color: Colors.white38),
-                    weekendStyle: TextStyle(color: Colors.white38),
+                  const SizedBox(height: 15),
+                  TableCalendar(
+                    calendarFormat:
+                        CalendarFormat.week, // prima c'era _calendarFormat
+                    availableCalendarFormats: const {
+                      CalendarFormat.week: '', // disabilita altri formati
+                    },
+                    rowHeight: 48,
+                    daysOfWeekHeight: 30,
+                    firstDay: DateTime.utc(2020, 1, 1),
+                    lastDay: DateTime.utc(2030, 12, 31),
+                    focusedDay: _focusedDay,
+                    selectedDayPredicate: (day) {
+                      return isSameDay(_selectedDay, day);
+                    },
+                    onDaySelected: (selectedDay, focusedDay) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                      });
+                    },
+                    onPageChanged: (focusedDay) {
+                      setState(() {
+                        _focusedDay = focusedDay;
+                      });
+                    },
+                    // onFormatChanged: (format) {},
+                    headerVisible: false,
+                    calendarStyle: CalendarStyle(
+                      tablePadding: const EdgeInsets.all(0),
+                      todayTextStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      todayDecoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      selectedDecoration: BoxDecoration(
+                        color: Colors.orange.shade900,
+                        shape: BoxShape.circle,
+                      ),
+                      defaultTextStyle: const TextStyle(color: Colors.white),
+                      weekendTextStyle: const TextStyle(color: Colors.white),
+                      outsideDaysVisible: false,
+                    ),
+                    daysOfWeekStyle: const DaysOfWeekStyle(
+                      weekdayStyle: TextStyle(color: Colors.white38),
+                      weekendStyle: TextStyle(color: Colors.white38),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 12),
-          GestureDetector(
-            onVerticalDragEnd: (details) {
-              if (details.primaryVelocity! < 0) {
-                // swipe alto
-                setState(() {
-                  _calendarFormat = CalendarFormat.week;
-                });
-              } else if (details.primaryVelocity! > 0) {
-                // swipe basso
-                setState(() {
-                  _calendarFormat = CalendarFormat.month;
-                });
-              }
-            },
-            child: Container(
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              ),
-              child: Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onVerticalDragEnd: (details) {
+          //     if (details.primaryVelocity! < 0) {
+          //       //swipe alto
+          //       setState(() {
+          //         _calendarFormat = CalendarFormat.week;
+          //       });
+          //     } else if (details.primaryVelocity! > 0) {
+          //       //swipe basso
+          //       setState(() {
+          //         _calendarFormat = CalendarFormat.month;
+          //       });
+          //     }
+          //   },
+          //   child: Container(
+          //     height: 40,
+          //     decoration: const BoxDecoration(
+          //       color: Colors.blue,
+          //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          //     ),
+          //     child: Center(
+          //       child: Container(
+          //         width: 40,
+          //         height: 4,
+          //         decoration: BoxDecoration(
+          //           color: Colors.grey.shade400,
+          //           borderRadius: BorderRadius.circular(2),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           // Daily log
           Expanded(
             child: Container(
@@ -144,7 +166,7 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomBar(currentIndex: 1),
+      // bottomNavigationBar: CustomBottomBar(currentIndex: 1),
     );
   }
 
