@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.interTextTheme(),
       ),
       home: HomePage(),
-      initialRoute: '/home',
+      initialRoute: '/calendar',
       routes: {
         '/home': (context) => const HomePage(),
         '/calendar': (context) => const CalendarPage(),

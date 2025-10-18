@@ -26,14 +26,14 @@ class _CalendarPageState extends State<CalendarPage> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: CustomColors.orange, // colore di sfondo della sezione
+              color: CustomColors.orange,
               borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(30), // smussa solo il bordo inferiore
+                bottom: Radius.circular(30),
               ),
             ),
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 25,
+                top: 0,
                 left: 25,
                 right: 25,
                 bottom: 30,
@@ -41,11 +41,24 @@ class _CalendarPageState extends State<CalendarPage> {
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        _focusedDay.year.toString(),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         _monthName(_focusedDay.month),
                         style: const TextStyle(
-                          fontSize: 35,
+                          fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -107,7 +120,7 @@ class _CalendarPageState extends State<CalendarPage> {
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 20),
           // GestureDetector(
           //   onVerticalDragEnd: (details) {
           //     if (details.primaryVelocity! < 0) {
@@ -160,7 +173,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     time: "10:00 AM",
                     tagColor: Colors.blueAccent,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),

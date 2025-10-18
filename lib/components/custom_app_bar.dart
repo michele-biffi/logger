@@ -16,8 +16,8 @@ AppBar appBar(BuildContext context) {
     actions: [
       IconButton(
         icon: const HugeIcon(
-          icon: HugeIcons.strokeRoundedMenu01,
-          size: 30,
+          icon: HugeIcons.strokeRoundedMenu09,
+          size: 25,
           color: Colors.white,
           strokeWidth: 1.5,
         ),
