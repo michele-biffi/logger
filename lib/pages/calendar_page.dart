@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
+import 'package:logger/components/add_log_dialog.dart';
 import 'package:logger/components/custom_app_bar.dart';
 // import 'package:logger/components/custom_bottom_bar.dart';
 import 'package:logger/components/log_card.dart';
@@ -20,7 +21,7 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context),
+      appBar: appBar(context, onDestinationSelected: (int) {}),
       backgroundColor: CustomColors.light,
       body: Column(
         children: [
@@ -69,9 +70,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   TableCalendar(
                     calendarFormat:
                         CalendarFormat.week, // prima c'era _calendarFormat
-                    availableCalendarFormats: const {
-                      CalendarFormat.week: '', // disabilita altri formati
-                    },
+                    availableCalendarFormats: const {CalendarFormat.week: ''},
                     rowHeight: 48,
                     daysOfWeekHeight: 30,
                     firstDay: DateTime.utc(2020, 1, 1),
@@ -96,7 +95,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     calendarStyle: CalendarStyle(
                       tablePadding: const EdgeInsets.all(0),
                       todayTextStyle: TextStyle(
-                        color: Colors.black,
+                        color: CustomColors.orange,
                         fontWeight: FontWeight.bold,
                       ),
                       todayDecoration: const BoxDecoration(
@@ -158,20 +157,15 @@ class _CalendarPageState extends State<CalendarPage> {
             child: Container(
               color: CustomColors.light,
               child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
                 children: [
                   const LogCard(
-                    tag: "Workout",
-                    description: "Allenamento spalle e braccia",
-                    time: "08:30 AM",
-                    tagColor: Colors.deepOrange,
-                  ),
-                  const SizedBox(height: 20),
-                  const LogCard(
-                    tag: "Meeting",
-                    description: "Riunione progetto Flutter",
-                    time: "10:00 AM",
-                    tagColor: Colors.blueAccent,
+                    title: "Team meeting",
+                    description: "Meeting di allineamento per l'app",
+                    startTime: "8:00",
+                    endTime: "10:00",
+                    effort: 120,
+                    important: false,
                   ),
                   const SizedBox(height: 20),
                 ],
@@ -181,6 +175,26 @@ class _CalendarPageState extends State<CalendarPage> {
         ],
       ),
       // bottomNavigationBar: CustomBottomBar(currentIndex: 1),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 30, right: 8),
+        child: SizedBox(
+          height: 65,
+          width: 65,
+          child: FloatingActionButton(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40),
+            ),
+            onPressed: () {
+              showAddLogModal(context);
+            },
+            backgroundColor: CustomColors.orange,
+            foregroundColor: CustomColors.light,
+            child: const Icon(Icons.add, size: 28),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
