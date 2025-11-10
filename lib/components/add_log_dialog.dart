@@ -31,7 +31,7 @@ class _AddLogFormState extends State<AddLogForm> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.red,
+      color: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
           color: CustomColors.light,

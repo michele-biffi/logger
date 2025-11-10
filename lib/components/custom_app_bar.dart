@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:logger/colors.dart';
+import 'drawer.dart'; // import del drawer
 
-AppBar appBar(BuildContext context) {
+AppBar appBar(BuildContext context, {required Function(int) onDestinationSelected}) {
   return AppBar(
     backgroundColor: CustomColors.orange,
     toolbarHeight: 80,
@@ -15,19 +15,37 @@ AppBar appBar(BuildContext context) {
     ),
     actions: [
       IconButton(
-        icon: const HugeIcon(
-          icon: HugeIcons.strokeRoundedMenu09,
-          size: 25,
+        icon: const Icon(
+          Icons.drag_handle_rounded,
+          size: 28,
           color: Colors.white,
-          strokeWidth: 1.5,
         ),
         onPressed: () {
-          // Azione quando si preme il menu
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Menu pressed')));
+          // Apri il drawer a destra
+          showGeneralDialog(
+            context: context,
+            barrierDismissible: true,
+            barrierLabel: 'Drawer',
+            transitionDuration: const Duration(milliseconds: 300),
+            pageBuilder: (_, __, ___) => Align(
+              alignment: Alignment.centerRight,
+              child: Material(
+                color: Colors.transparent,
+                child: RightDrawer(
+                  onDestinationSelected: onDestinationSelected,
+                ),
+              ),
+            ),
+            transitionBuilder: (_, anim, __, child) {
+              return SlideTransition(
+                position: Tween(begin: const Offset(1, 0), end: Offset.zero)
+                    .animate(CurvedAnimation(parent: anim, curve: Curves.easeOut)),
+                child: child,
+              );
+            },
+          );
         },
-        padding: EdgeInsets.only(right: 25),
+        padding: const EdgeInsets.only(right: 25),
       ),
     ],
   );
