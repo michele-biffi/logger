@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
 import 'package:logger/components/add_log_dialog.dart';
 import 'package:logger/components/custom_app_bar.dart';
-// import 'package:logger/components/custom_bottom_bar.dart';
 import 'package:logger/components/log_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -120,39 +119,6 @@ class _CalendarPageState extends State<CalendarPage> {
             ),
           ),
           const SizedBox(height: 20),
-          // GestureDetector(
-          //   onVerticalDragEnd: (details) {
-          //     if (details.primaryVelocity! < 0) {
-          //       //swipe alto
-          //       setState(() {
-          //         _calendarFormat = CalendarFormat.week;
-          //       });
-          //     } else if (details.primaryVelocity! > 0) {
-          //       //swipe basso
-          //       setState(() {
-          //         _calendarFormat = CalendarFormat.month;
-          //       });
-          //     }
-          //   },
-          //   child: Container(
-          //     height: 40,
-          //     decoration: const BoxDecoration(
-          //       color: Colors.blue,
-          //       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          //     ),
-          //     child: Center(
-          //       child: Container(
-          //         width: 40,
-          //         height: 4,
-          //         decoration: BoxDecoration(
-          //           color: Colors.grey.shade400,
-          //           borderRadius: BorderRadius.circular(2),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // Daily log
           Expanded(
             child: Container(
               color: CustomColors.light,

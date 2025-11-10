@@ -89,9 +89,9 @@ class LogCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   alignment: Alignment.center,
-                  child: const Text(
-                    "1h",
-                    style: TextStyle(
+                  child: Text(
+                    effort.toString(),
+                    style: const TextStyle(
                       fontSize: 12,
                       color: Colors.black45,
                       fontWeight: FontWeight.w500,
