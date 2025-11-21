@@ -3,11 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:logger/colors.dart';
 import 'drawer.dart'; // import del drawer
 
-AppBar appBar(BuildContext context, {required Function(int) onDestinationSelected}) {
+AppBar appBar(
+  BuildContext context, {
+  required Function(int) onDestinationSelected,
+}) {
   return AppBar(
     backgroundColor: CustomColors.orange,
     toolbarHeight: 80,
     elevation: 0,
+    // non rendere un po piu scura l'app bar quando si scolla
+    surfaceTintColor: Colors.transparent,
+    scrolledUnderElevation: 0,
+    //
     automaticallyImplyLeading: false,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -21,7 +28,6 @@ AppBar appBar(BuildContext context, {required Function(int) onDestinationSelecte
           color: Colors.white,
         ),
         onPressed: () {
-          // Apri il drawer a destra
           showGeneralDialog(
             context: context,
             barrierDismissible: true,
@@ -38,8 +44,10 @@ AppBar appBar(BuildContext context, {required Function(int) onDestinationSelecte
             ),
             transitionBuilder: (_, anim, __, child) {
               return SlideTransition(
-                position: Tween(begin: const Offset(1, 0), end: Offset.zero)
-                    .animate(CurvedAnimation(parent: anim, curve: Curves.easeOut)),
+                position: Tween(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut)),
                 child: child,
               );
             },

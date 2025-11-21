@@ -7,7 +7,7 @@ class LogCard extends StatelessWidget {
   final String title;
   final String description;
   final int effort; // in minuti
-  final bool important;
+  final bool isImportant;
 
   const LogCard({
     super.key,
@@ -16,7 +16,7 @@ class LogCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.effort,
-    required this.important,
+    required this.isImportant,
   });
 
   @override
@@ -41,7 +41,9 @@ class LogCard extends StatelessWidget {
                 const Spacer(),
                 Icon(
                   Icons.label_important_rounded,
-                  color: important ? CustomColors.orange : Colors.grey.shade400,
+                  color: isImportant
+                      ? CustomColors.orange
+                      : Colors.grey.shade400,
                   size: 28,
                 ),
               ],

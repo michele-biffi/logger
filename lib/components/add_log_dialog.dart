@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:logger/colors.dart';
 import 'package:logger/components/custom_time_picker.dart';
 
-void showAddLogModal(BuildContext context) {
-  showModalBottomSheet(
+Future<Map<String, dynamic>?> showAddLogModal(BuildContext context) {
+  return showModalBottomSheet<Map<String, dynamic>>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
@@ -26,7 +26,22 @@ class AddLogForm extends StatefulWidget {
 }
 
 class _AddLogFormState extends State<AddLogForm> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _effortController = TextEditingController();
+  TimeOfDay _startTime = TimeOfDay.now();
+  TimeOfDay _endTime = TimeOfDay.fromDateTime(
+    DateTime.now().add(const Duration(hours: 1)),
+  );
   bool isChecked = false;
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _effortController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +90,7 @@ class _AddLogFormState extends State<AddLogForm> {
                       ),
                       SizedBox(height: 15),
                       TextFormField(
+                        controller: _titleController,
                         decoration: InputDecoration(
                           hintText: 'Title',
                           contentPadding: EdgeInsets.symmetric(
@@ -85,6 +101,7 @@ class _AddLogFormState extends State<AddLogForm> {
                       ),
                       SizedBox(height: 12),
                       TextFormField(
+                        controller: _descriptionController,
                         maxLines: 3,
                         decoration: InputDecoration(
                           hintText: 'Description',
@@ -105,8 +122,30 @@ class _AddLogFormState extends State<AddLogForm> {
                       ),
                       SizedBox(height: 15),
                       TimePickerDropdown(
-                        onTimeSelected: (time) {},
-                        initialTime: TimeOfDay.now(),
+                        onTimeSelected: (time) {
+                          setState(() {
+                            _startTime = time;
+                          });
+                        },
+                        initialTime: _startTime,
+                      ),
+                      SizedBox(height: 35),
+                      Text(
+                        'Ending time',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      TimePickerDropdown(
+                        onTimeSelected: (time) {
+                          setState(() {
+                            _endTime = time;
+                          });
+                        },
+                        initialTime: _endTime,
                       ),
                       SizedBox(height: 35),
                       Text(
@@ -121,6 +160,7 @@ class _AddLogFormState extends State<AddLogForm> {
                       SizedBox(
                         width: 90,
                         child: TextFormField(
+                          controller: _effortController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             hintText: 'e.g. 60',
@@ -174,7 +214,18 @@ class _AddLogFormState extends State<AddLogForm> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
-                            // salva
+                            final newLog = {
+                              'title': _titleController.text.trim(),
+                              'description': _descriptionController.text.trim(),
+                              'start_time': _startTime,
+                              'end_time': _endTime,
+                              'effort':
+                                  int.tryParse(_effortController.text.trim()) ??
+                                  0,
+                              'is_important': isChecked,
+                            };
+
+                            Navigator.of(context).pop(newLog);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: CustomColors.orange,

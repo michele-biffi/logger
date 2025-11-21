@@ -32,7 +32,7 @@ class RightDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
+      width: 300,
       height: double.infinity,
       decoration: BoxDecoration(
         color: CustomColors.light,
@@ -60,26 +60,31 @@ class RightDrawer extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 28,
-                      backgroundImage: AssetImage('assets/profile.jpg'),
+                      //backgroundImage: AssetImage('assets/profile.jpg'),
+                      backgroundColor: CustomColors.orange,
                     ),
                     SizedBox(width: 12),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'John Doe',
+                          'Michele Biffi',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text('email@email.com', style: TextStyle(fontSize: 12)),
+                        const SizedBox(height: 2),
+                        Text(
+                          'michelebiffi@sorint.com',
+                          style: TextStyle(fontSize: 12),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 40),
               ..._destinations.map(
                 (dest) => NavigationDrawerDestination(
                   label: Text(dest['label']),

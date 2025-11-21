@@ -117,16 +117,16 @@ class CustomBottomBar extends StatelessWidget {
 }
 
 // TEST
-                // IconButton(
-                //   icon: Icon(
-                //     Icons.home_rounded,
-                //     color: CustomColors.dark,
-                //     size: 30,
-                //   ),
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => HomePage()),
-                //     );
-                //   },
-                // ),
+// IconButton(
+//   icon: Icon(
+//     Icons.home_rounded,
+//     color: CustomColors.dark,
+//     size: 30,
+//   ),
+//   onPressed: () {
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(builder: (context) => HomePage()),
+//     );
+//   },
+// ),
