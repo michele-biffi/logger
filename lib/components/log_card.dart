@@ -35,7 +35,8 @@ class LogCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "$startTime - $endTime",
+                  // "$startTime - $endTime", before - to show both times
+                  startTime,
                   style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
                 ),
                 const Spacer(),
@@ -43,7 +44,7 @@ class LogCard extends StatelessWidget {
                   Icons.label_important_rounded,
                   color: isImportant
                       ? CustomColors.orange
-                      : Colors.grey.shade400,
+                      : Colors.grey.shade300,
                   size: 28,
                 ),
               ],
@@ -60,27 +61,9 @@ class LogCard extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Elite",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
+                // EFFORT Container
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
@@ -92,7 +75,7 @@ class LogCard extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    effort.toString(),
+                    "$effort min",
                     style: const TextStyle(
                       fontSize: 12,
                       color: Colors.black45,
@@ -100,6 +83,27 @@ class LogCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                // const SizedBox(width: 8),
+                // TAG Container
+                // Container(
+                //   padding: const EdgeInsets.symmetric(
+                //     horizontal: 18,
+                //     vertical: 12,
+                //   ),
+                //   decoration: BoxDecoration(
+                //     color: Colors.grey.shade200,
+                //     borderRadius: BorderRadius.circular(30),
+                //   ),
+                //   alignment: Alignment.center,
+                //   child: const Text(
+                //     "Elite",
+                //     style: TextStyle(
+                //       fontSize: 12,
+                //       color: Colors.black45,
+                //       fontWeight: FontWeight.w500,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],
