@@ -49,7 +49,7 @@ class _AddLogFormState extends State<AddLogForm> {
       color: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-          color: CustomColors.light,
+          color: CustomColors.whiteSmoke,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         padding: EdgeInsets.symmetric(vertical: 25, horizontal: 30),
@@ -178,7 +178,7 @@ class _AddLogFormState extends State<AddLogForm> {
                           Transform.scale(
                             scale: 0.85,
                             child: Switch(
-                              inactiveTrackColor: CustomColors.light,
+                              inactiveTrackColor: CustomColors.whiteSmoke,
                               trackOutlineColor:
                                   WidgetStateProperty.resolveWith<Color?>((
                                     Set<WidgetState> states,
@@ -242,7 +242,7 @@ class _AddLogFormState extends State<AddLogForm> {
                               'SAVE',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: CustomColors.light,
+                                color: CustomColors.whiteSmoke,
                               ),
                             ),
                           ),

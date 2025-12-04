@@ -21,9 +21,9 @@ class UserPage extends StatelessWidget {
         ),
         elevation: 0,
         toolbarHeight: 70,
-        backgroundColor: CustomColors.light,
+        backgroundColor: CustomColors.whiteSmoke,
       ),
-      backgroundColor: CustomColors.light,
+      backgroundColor: CustomColors.whiteSmoke,
 
       body: Center(
         child: Column(
@@ -45,7 +45,7 @@ class UserPage extends StatelessWidget {
               'Michele Biffi',
               style: TextStyle(
                 fontSize: 24,
-                color: CustomColors.dark,
+                color: CustomColors.onyx,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -71,11 +71,11 @@ class UserPage extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.edit, color: CustomColors.light, size: 20),
+                  Icon(Icons.edit, color: CustomColors.whiteSmoke, size: 20),
                   SizedBox(width: 8),
                   Text(
                     'Modifica profilo',
-                    style: TextStyle(color: CustomColors.light, fontSize: 16),
+                    style: TextStyle(color: CustomColors.whiteSmoke, fontSize: 16),
                   ),
                 ],
               ),

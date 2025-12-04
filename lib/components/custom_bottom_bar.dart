@@ -52,7 +52,7 @@ class CustomBottomBar extends StatelessWidget {
         child: BottomAppBar(
           padding: const EdgeInsets.all(0),
           height: 75,
-          color: CustomColors.light,
+          color: CustomColors.whiteSmoke,
           elevation: 0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

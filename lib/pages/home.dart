@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context, onDestinationSelected: (index) {}),
-      backgroundColor: CustomColors.light,
+      backgroundColor: CustomColors.whiteSmoke,
       body: Padding(
         padding: const EdgeInsets.only(
           top: 40,

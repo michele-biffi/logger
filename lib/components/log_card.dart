@@ -24,9 +24,10 @@ class LogCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.grey.shade300,
+        color: CustomColors.alabasterGrey,
         borderRadius: BorderRadius.circular(30),
       ),
+
       child: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
@@ -34,76 +35,81 @@ class LogCard extends StatelessWidget {
           children: [
             Row(
               children: [
+                Icon(
+                  Icons.access_time_rounded,
+                  size: 14,
+                  color: CustomColors.onyx.withOpacity(0.4),
+                ),
+                const SizedBox(width: 4),
                 Text(
                   // "$startTime - $endTime", before - to show both times
-                  startTime,
-                  style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+                  "started at $startTime",
+                  style: TextStyle(
+                    color: CustomColors.onyx.withOpacity(0.4),
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const Spacer(),
                 Icon(
-                  Icons.label_important_rounded,
+                  Icons.bookmark_rounded,
                   color: isImportant
                       ? CustomColors.orange
-                      : Colors.grey.shade300,
-                  size: 28,
+                      : Colors.grey.shade400,
+                  size: 24,
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 12),
             Text(
-              title,
-              style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+              "Design Elite case studio portf",
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: CustomColors.onyx,
+              ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              description,
-              style: const TextStyle(fontSize: 13, color: Colors.black87),
-            ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 8),
+            description.isNotEmpty
+                ? Text(
+                    description,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: CustomColors.onyx,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            const SizedBox(height: 12),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
               children: [
-                // EFFORT Container
+                // TAG
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 12,
+                    horizontal: 14,
+                    vertical: 6,
                   ),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  alignment: Alignment.center,
                   child: Text(
-                    "$effort min",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    "ELITE",
+                    style: TextStyle(color: CustomColors.onyx, fontSize: 10),
                   ),
                 ),
-                // const SizedBox(width: 8),
-                // TAG Container
-                // Container(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 18,
-                //     vertical: 12,
-                //   ),
-                //   decoration: BoxDecoration(
-                //     color: Colors.grey.shade200,
-                //     borderRadius: BorderRadius.circular(30),
-                //   ),
-                //   alignment: Alignment.center,
-                //   child: const Text(
-                //     "Elite",
-                //     style: TextStyle(
-                //       fontSize: 12,
-                //       color: Colors.black45,
-                //       fontWeight: FontWeight.w500,
-                //     ),
+
+                // const Spacer(),
+                // Text(
+                //   effort.toString(),
+                //   style: const TextStyle(
+                //     fontSize: 40,
+                //     fontWeight: FontWeight.bold,
                 //   ),
                 // ),
+                // const SizedBox(width: 6),
+                // const Text("mins", style: TextStyle(fontSize: 12)),
               ],
             ),
           ],
@@ -112,3 +118,32 @@ class LogCard extends StatelessWidget {
     );
   }
 }
+
+// show start time
+//Text(
+// "$startTime - $endTime", before - to show both times
+//startTime,
+//style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+//),
+
+//DIFFICULTY LEVEL TAG EXAMPLE
+// Container(
+//   padding: const EdgeInsets.symmetric(
+//     horizontal: 12,
+//     vertical: 6,
+//   ),
+//   //decoration: BoxDecoration(
+//   //color: Colors.grey.shade200,
+//   //borderRadius: BorderRadius.circular(8),
+//   //),
+//   child: Row(
+//     children: [
+//       Icon(Icons.circle, color: Colors.green, size: 12),
+//       const SizedBox(width: 6),
+//       Text(
+//         "Easy",
+//         style: TextStyle(color: Colors.green, fontSize: 12),
+//       ),
+//     ],
+//   ),
+// ),
