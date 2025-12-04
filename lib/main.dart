@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/colors.dart';
 import 'package:logger/pages/calendar_page.dart';
-import 'package:logger/pages/home.dart';
-import 'package:logger/pages/user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,15 +50,9 @@ class MyApp extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.black26, fontSize: 16),
           contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         ),
-        textTheme: GoogleFonts.interTextTheme(),
+        textTheme: GoogleFonts.archivoTextTheme(),
       ),
-      home: HomePage(),
-      initialRoute: '/calendar',
-      routes: {
-        '/home': (context) => const HomePage(),
-        '/calendar': (context) => const CalendarPage(),
-        '/profile': (context) => const UserPage(),
-      },
+      home: CalendarPage(),
     );
   }
 }

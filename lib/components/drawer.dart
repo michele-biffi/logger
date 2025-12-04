@@ -13,6 +13,11 @@ class RightDrawer extends StatelessWidget {
 
   static const List<Map<String, dynamic>> _destinations = [
     {
+      'label': 'Home',
+      'icon': Icons.home_outlined,
+      'selectedIcon': Icons.home_outlined,
+    },
+    {
       'label': 'My profile',
       'icon': Icons.person_outline_rounded,
       'selectedIcon': Icons.person_outline_rounded,
@@ -36,7 +41,7 @@ class RightDrawer extends StatelessWidget {
       height: double.infinity,
       decoration: BoxDecoration(
         color: CustomColors.whiteSmoke,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           bottomLeft: Radius.circular(30),
         ),
@@ -63,11 +68,11 @@ class RightDrawer extends StatelessWidget {
                       //backgroundImage: AssetImage('assets/profile.jpg'),
                       backgroundColor: CustomColors.orange,
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Michele Biffi',
                           style: TextStyle(
                             fontSize: 20,
@@ -93,7 +98,10 @@ class RightDrawer extends StatelessWidget {
                 (dest) => NavigationDrawerDestination(
                   label: Text(
                     dest['label'],
-                    style: TextStyle(fontSize: 14, color: CustomColors.onyx),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: CustomColors.onyx,
+                    ),
                   ),
                   icon: Icon(dest['icon'], color: CustomColors.onyx, size: 22),
                   selectedIcon: Icon(

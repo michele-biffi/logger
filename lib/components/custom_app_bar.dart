@@ -6,6 +6,8 @@ import 'drawer.dart'; // import del drawer
 AppBar appBar(
   BuildContext context, {
   required Function(int) onDestinationSelected,
+  bool showBackButton = false,
+  VoidCallback? onBack,
 }) {
   return AppBar(
     backgroundColor: CustomColors.orange,
@@ -20,6 +22,16 @@ AppBar appBar(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ),
+    leading: showBackButton
+        ? IconButton(
+            onPressed: onBack,
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              size: 22,
+              color: Colors.white,
+            ),
+          )
+        : null,
     actions: [
       IconButton(
         icon: const Icon(

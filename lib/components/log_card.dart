@@ -62,7 +62,7 @@ class LogCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              "Design Elite case studio portf",
+              title,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
