@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         onDestinationSelected: (index) {},
         onLogout: () {
           // TODO: Implement actual logout logic here
-          print('Logout tapped from Home Page');
+          
         },
       ),
       backgroundColor: CustomColors.whiteSmoke,

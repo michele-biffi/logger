@@ -294,7 +294,7 @@ class _CalendarPageState extends State<CalendarPage> {
         },
         onLogout: () {
           // TODO: Implement actual logout logic here
-          print('Logout tapped from Calendar Page');
+          
         },
       ),
       backgroundColor: CustomColors.whiteSmoke,

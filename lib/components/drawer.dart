@@ -40,36 +40,42 @@ class RightDrawer extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(left: 25),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 28,
-                      //backgroundImage: AssetImage('assets/profile.jpg'),
-                      backgroundColor: CustomColors.orange,
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Michele Biffi',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.onyx,
+                child: GestureDetector(
+                  onTap: () {
+                    onDestinationSelected(1);
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 28,
+                        //backgroundImage: AssetImage('assets/profile.jpg'),
+                        backgroundColor: CustomColors.orange,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Michele Biffi',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColors.onyx,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'michelebiffi@sorint.com',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: CustomColors.onyx.withOpacity(0.6),
+                          const SizedBox(height: 2),
+                          Text(
+                            'michelebiffi@sorint.com',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: CustomColors.onyx.withOpacity(0.6),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -80,7 +86,7 @@ class RightDrawer extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: ListTile(
-                    dense: true, 
+                    dense: true,
                     leading: Icon(
                       dest['icon'],
                       color: CustomColors.onyx,
@@ -104,7 +110,10 @@ class RightDrawer extends StatelessWidget {
               }),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25,
+                  vertical: 8,
+                ),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -146,7 +155,29 @@ class RightDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 25,
+                ),
+                child: const Divider(),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Version 1.0.0',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: CustomColors.onyx.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 10),
             ],
           ),
         ),
