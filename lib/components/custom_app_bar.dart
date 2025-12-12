@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:logger/colors.dart';
-import 'drawer.dart'; // import del drawer
+import 'drawer.dart';
 
 AppBar appBar(
   BuildContext context, {
@@ -25,10 +26,11 @@ AppBar appBar(
     leading: showBackButton
         ? IconButton(
             onPressed: onBack,
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 22,
+            icon: const HugeIcon(
+              icon: HugeIcons.strokeRoundedArrowLeft01,
+              size: 30,
               color: Colors.white,
+              strokeWidth: 1.5,
             ),
           )
         : null,
@@ -36,8 +38,8 @@ AppBar appBar(
       Container(
         margin: const EdgeInsets.only(right: 20),
         child: IconButton(
-          icon: const Icon(
-            Icons.drag_handle_rounded,
+          icon: const HugeIcon(
+            icon: HugeIcons.strokeRoundedMenu09,
             size: 28,
             color: Colors.white,
           ),

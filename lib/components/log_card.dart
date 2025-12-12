@@ -38,14 +38,14 @@ class LogCard extends StatelessWidget {
                 Icon(
                   Icons.access_time_rounded,
                   size: 14,
-                  color: CustomColors.onyx.withOpacity(0.4),
+                  color: CustomColors.onyx.withAlpha(102),
                 ),
                 const SizedBox(width: 4),
                 Text(
                   // "$startTime - $endTime", before - to show both times
                   "started at $startTime",
                   style: TextStyle(
-                    color: CustomColors.onyx.withOpacity(0.4),
+                    color: CustomColors.onyx.withAlpha(102),
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),

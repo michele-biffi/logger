@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:logger/colors.dart';
 
 class RightDrawer extends StatelessWidget {
@@ -14,10 +15,10 @@ class RightDrawer extends StatelessWidget {
   final VoidCallback onLogout;
 
   static const List<Map<String, dynamic>> _destinations = [
-    {'label': 'Home', 'icon': Icons.home_outlined},
-    {'label': 'My profile', 'icon': Icons.person_outline_rounded},
-    {'label': 'Analytics', 'icon': Icons.show_chart_rounded},
-    {'label': 'Settings', 'icon': Icons.settings_outlined},
+    {'label': 'Home', 'icon': HugeIcons.strokeRoundedHome03},
+    {'label': 'My profile', 'icon': HugeIcons.strokeRoundedUser},
+    {'label': 'Analytics', 'icon': HugeIcons.strokeRoundedChart01},
+    {'label': 'Settings', 'icon': HugeIcons.strokeRoundedSettings01},
   ];
 
   @override
@@ -69,7 +70,7 @@ class RightDrawer extends StatelessWidget {
                             'michelebiffi@sorint.com',
                             style: TextStyle(
                               fontSize: 12,
-                              color: CustomColors.onyx.withOpacity(0.6),
+                              color: CustomColors.onyx.withAlpha(153),
                             ),
                           ),
                         ],
@@ -86,9 +87,8 @@ class RightDrawer extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: ListTile(
-                    dense: true,
-                    leading: Icon(
-                      dest['icon'],
+                    leading: HugeIcon(
+                      icon: dest['icon'],
                       color: CustomColors.onyx,
                       size: 22,
                     ),
@@ -100,7 +100,7 @@ class RightDrawer extends StatelessWidget {
                       ),
                     ),
                     selected: selectedIndex == index,
-                    selectedTileColor: CustomColors.orange.withOpacity(0.2),
+                    selectedTileColor: CustomColors.orange.withAlpha(51),
                     onTap: () {
                       onDestinationSelected(index);
                       Navigator.pop(context);
@@ -109,10 +109,11 @@ class RightDrawer extends StatelessWidget {
                 );
               }),
               const Spacer(),
+              //LOGOUT BTN
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 25,
-                  vertical: 8,
+                  vertical: 10,
                 ),
                 child: Container(
                   decoration: BoxDecoration(
@@ -155,23 +156,44 @@ class RightDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-
+              //DIVIDER
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 8,
+                  vertical: 10,
                   horizontal: 25,
                 ),
                 child: const Divider(),
               ),
-
+              //VERSION TEXT
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Version 1.0.0',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: CustomColors.onyx.withOpacity(0.6),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Text(
+                      'version 1.0.0',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: CustomColors.onyx.withAlpha(153),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              //MADE BY TEXT
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Text(
+                      'made by @michelebiffi',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: CustomColors.onyx.withAlpha(153),
+                      ),
                     ),
                   ),
                 ],
