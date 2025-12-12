@@ -52,7 +52,7 @@ class CustomBottomBar extends StatelessWidget {
         child: BottomAppBar(
           padding: const EdgeInsets.all(0),
           height: 75,
-          color: CustomColors.light,
+          color: CustomColors.whiteSmoke,
           elevation: 0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -117,16 +117,16 @@ class CustomBottomBar extends StatelessWidget {
 }
 
 // TEST
-                // IconButton(
-                //   icon: Icon(
-                //     Icons.home_rounded,
-                //     color: CustomColors.dark,
-                //     size: 30,
-                //   ),
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => HomePage()),
-                //     );
-                //   },
-                // ),
+// IconButton(
+//   icon: Icon(
+//     Icons.home_rounded,
+//     color: CustomColors.dark,
+//     size: 30,
+//   ),
+//   onPressed: () {
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(builder: (context) => HomePage()),
+//     );
+//   },
+// ),

@@ -15,8 +15,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, onDestinationSelected: (int) {}),
-      backgroundColor: CustomColors.light,
+      appBar: appBar(
+        context,
+        onDestinationSelected: (index) {},
+        onLogout: () {
+          // TODO: Implement actual logout logic here
+          
+        },
+      ),
+      backgroundColor: CustomColors.whiteSmoke,
       body: Padding(
         padding: const EdgeInsets.only(
           top: 40,
@@ -55,21 +62,20 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-
-      // FLOATING BTN
-      // floatingActionButton: SizedBox(
-      //   width: 60,
-      //   height: 60,
-      //   child: FloatingActionButton(
-      //     elevation: 4,
-      //     onPressed: () {
-      //       showAddLogModal(context);
-      //     },
-      //     shape: RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.circular(40),
-      //     ),
-      //     backgroundColor: CustomColors.orange,
-      //     foregroundColor: CustomColors.light,
-      //     child: Icon(Icons.add, size: 25),
-      //   ),
-      // ),
+// FLOATING BTN
+// floatingActionButton: SizedBox(
+//   width: 60,
+//   height: 60,
+//   child: FloatingActionButton(
+//     elevation: 4,
+//     onPressed: () {
+//       showAddLogModal(context);
+//     },
+//     shape: RoundedRectangleBorder(
+//       borderRadius: BorderRadius.circular(40),
+//     ),
+//     backgroundColor: CustomColors.orange,
+//     foregroundColor: CustomColors.light,
+//     child: Icon(Icons.add, size: 25),
+//   ),
+// ),
