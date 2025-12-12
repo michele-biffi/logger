@@ -8,6 +8,7 @@ AppBar appBar(
   required Function(int) onDestinationSelected,
   bool showBackButton = false,
   VoidCallback? onBack,
+  required VoidCallback onLogout,
 }) {
   return AppBar(
     backgroundColor: CustomColors.orange,
@@ -51,6 +52,7 @@ AppBar appBar(
                 color: Colors.transparent,
                 child: RightDrawer(
                   onDestinationSelected: onDestinationSelected,
+                  onLogout: onLogout,
                 ),
               ),
             ),

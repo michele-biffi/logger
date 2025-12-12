@@ -6,32 +6,18 @@ class RightDrawer extends StatelessWidget {
     super.key,
     required this.onDestinationSelected,
     this.selectedIndex = 0,
+    required this.onLogout,
   });
 
   final Function(int) onDestinationSelected;
   final int selectedIndex;
+  final VoidCallback onLogout;
 
   static const List<Map<String, dynamic>> _destinations = [
-    {
-      'label': 'Home',
-      'icon': Icons.home_outlined,
-      'selectedIcon': Icons.home_outlined,
-    },
-    {
-      'label': 'My profile',
-      'icon': Icons.person_outline_rounded,
-      'selectedIcon': Icons.person_outline_rounded,
-    },
-    {
-      'label': 'Analytics',
-      'icon': Icons.show_chart_rounded,
-      'selectedIcon': Icons.show_chart_rounded,
-    },
-    {
-      'label': 'Settings',
-      'icon': Icons.settings_outlined,
-      'selectedIcon': Icons.settings_outlined,
-    },
+    {'label': 'Home', 'icon': Icons.home_outlined},
+    {'label': 'My profile', 'icon': Icons.person_outline_rounded},
+    {'label': 'Analytics', 'icon': Icons.show_chart_rounded},
+    {'label': 'Settings', 'icon': Icons.settings_outlined},
   ];
 
   @override
@@ -48,19 +34,12 @@ class RightDrawer extends StatelessWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 30, top: 15),
-          child: NavigationDrawer(
-            indicatorColor: Colors.transparent,
-            backgroundColor: CustomColors.whiteSmoke,
-            onDestinationSelected: (index) {
-              onDestinationSelected(index);
-              Navigator.pop(context); // chiude il drawer
-            },
-            selectedIndex: selectedIndex,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              //const SizedBox.shrink(),
               Padding(
-                padding: const EdgeInsets.only(left: 25, top: 8),
+                padding: const EdgeInsets.only(left: 25),
                 child: Row(
                   children: [
                     CircleAvatar(
@@ -94,23 +73,80 @@ class RightDrawer extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              ..._destinations.map(
-                (dest) => NavigationDrawerDestination(
-                  label: Text(
-                    dest['label'],
-                    style: const TextStyle(
-                      fontSize: 14,
+              // Use map with index to create ListTiles
+              ..._destinations.asMap().entries.map((entry) {
+                final index = entry.key;
+                final dest = entry.value;
+                return Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: ListTile(
+                    dense: true, 
+                    leading: Icon(
+                      dest['icon'],
                       color: CustomColors.onyx,
+                      size: 22,
                     ),
+                    title: Text(
+                      dest['label'],
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.onyx,
+                      ),
+                    ),
+                    selected: selectedIndex == index,
+                    selectedTileColor: CustomColors.orange.withOpacity(0.2),
+                    onTap: () {
+                      onDestinationSelected(index);
+                      Navigator.pop(context);
+                    },
                   ),
-                  icon: Icon(dest['icon'], color: CustomColors.onyx, size: 22),
-                  selectedIcon: Icon(
-                    dest['selectedIcon'],
-                    color: CustomColors.onyx,
-                    size: 22,
+                );
+              }),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: CustomColors.orange),
+                  ),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: CustomColors.orange,
+                      backgroundColor: Colors.transparent,
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      alignment: Alignment.center,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      onLogout();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 25,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'LOGOUT',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: CustomColors.orange,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

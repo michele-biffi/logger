@@ -15,7 +15,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context, onDestinationSelected: (index) {}),
+      appBar: appBar(
+        context,
+        onDestinationSelected: (index) {},
+        onLogout: () {
+          // TODO: Implement actual logout logic here
+          print('Logout tapped from Home Page');
+        },
+      ),
       backgroundColor: CustomColors.whiteSmoke,
       body: Padding(
         padding: const EdgeInsets.only(

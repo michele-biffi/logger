@@ -292,6 +292,10 @@ class _CalendarPageState extends State<CalendarPage> {
             _drawerSelectedIndex = -1;
           });
         },
+        onLogout: () {
+          // TODO: Implement actual logout logic here
+          print('Logout tapped from Calendar Page');
+        },
       ),
       backgroundColor: CustomColors.whiteSmoke,
       body: _drawerSelectedIndex == -1
