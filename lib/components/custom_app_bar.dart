@@ -70,7 +70,6 @@ AppBar appBar(
               },
             );
           },
-          //padding: const EdgeInsets.only(right: 25),
         ),
       ),
     ],

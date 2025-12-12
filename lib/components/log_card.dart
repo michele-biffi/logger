@@ -71,15 +71,18 @@ class LogCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             description.isNotEmpty
-                ? Text(
-                    description,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: CustomColors.onyx,
+                ? Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      description,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.onyx,
+                      ),
                     ),
                   )
                 : const SizedBox.shrink(),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
