@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:logger/colors.dart';
 
 class LogCard extends StatelessWidget {
@@ -35,19 +36,19 @@ class LogCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.access_time_rounded,
-                  size: 14,
-                  color: CustomColors.onyx.withAlpha(102),
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  // "$startTime - $endTime", before - to show both times
-                  "started at $startTime",
-                  style: TextStyle(
-                    color: CustomColors.onyx.withAlpha(102),
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                //TAG
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    "ELITE",
+                    style: TextStyle(color: CustomColors.onyx, fontSize: 10),
                   ),
                 ),
                 const Spacer(),
@@ -55,7 +56,7 @@ class LogCard extends StatelessWidget {
                   Icons.bookmark_rounded,
                   color: isImportant
                       ? CustomColors.orange
-                      : Colors.grey.shade400,
+                      : CustomColors.onyx.withAlpha(50),
                   size: 24,
                 ),
               ],
@@ -71,45 +72,54 @@ class LogCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             description.isNotEmpty
-                ? Text(
-                    description,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: CustomColors.onyx,
+                ? Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      description,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.onyx.withAlpha(150),
+                      ),
                     ),
                   )
                 : const SizedBox.shrink(),
-            const SizedBox(height: 12),
+            //const SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                // TAG
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    "ELITE",
-                    style: TextStyle(color: CustomColors.onyx, fontSize: 10),
-                  ),
+                Row(
+                  children: [
+                    Opacity(
+                      opacity: 100 / 255.0,
+                      child: HugeIcon(
+                        icon: HugeIcons.strokeRoundedClock01,
+                        size: 16,
+                        color: CustomColors.onyx,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      // "$startTime - $endTime", before - to show both times
+                      "started at $startTime",
+                      style: TextStyle(
+                        color: CustomColors.onyx.withAlpha(100),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
                 ),
 
-                // const Spacer(),
-                // Text(
-                //   effort.toString(),
-                //   style: const TextStyle(
-                //     fontSize: 40,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-                // const SizedBox(width: 6),
-                // const Text("mins", style: TextStyle(fontSize: 12)),
+                const Spacer(),
+                Text(
+                  effort.toString(),
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                const Text("mins", style: TextStyle(fontSize: 12)),
               ],
             ),
           ],

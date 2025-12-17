@@ -170,8 +170,8 @@ class _CalendarPageState extends State<CalendarPage> {
                   availableCalendarFormats: const {CalendarFormat.week: ''},
                   rowHeight: 48,
                   daysOfWeekHeight: 30,
-                  firstDay: DateTime.utc(2020, 1, 1),
-                  lastDay: DateTime.utc(2030, 12, 31),
+                  firstDay: DateTime.utc(2025, 1, 1),
+                  lastDay: DateTime.utc(2035, 12, 31),
                   focusedDay: _focusedDay,
                   selectedDayPredicate: (day) {
                     return isSameDay(_selectedDay, day);
@@ -200,7 +200,10 @@ class _CalendarPageState extends State<CalendarPage> {
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: BoxDecoration(
-                      color: Colors.orange.shade900,
+                      border: BoxBorder.all(
+                        color: CustomColors.whiteSmoke,
+                        width: 1.5,
+                      ),
                       shape: BoxShape.circle,
                     ),
                     defaultTextStyle: const TextStyle(
@@ -226,35 +229,40 @@ class _CalendarPageState extends State<CalendarPage> {
             color: CustomColors.whiteSmoke,
             child: _isLoading
                 ? const Center(
-              child: CircularProgressIndicator(
-                color: CustomColors.orange,
-              ),
-            )
+                    child: CircularProgressIndicator(
+                      color: CustomColors.orange,
+                    ),
+                  )
                 : _logs.isEmpty
-                ? const Center(child: Text("Nessun log per questo giorno"))
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 80),
+                      child: Text("Nessun log per questo giorno"),
+                    ),
+                  )
                 : ListView.builder(
-              padding: const EdgeInsets.symmetric(
-                vertical: 0,
-                horizontal: 5,
-              ),
-              itemCount: _logs.length,
-              itemBuilder: (context, index) {
-                final log = _logs[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: LogCard(
-                    title: log.title,
-                    description: log.description ?? '',
-                    startTime: DateFormat.Hm().format(log.startTime),
-                    endTime: log.endTime != null
-                        ? DateFormat.Hm().format(log.endTime!)
-                        : '',
-                    effort: log.effort ?? 0,
-                    isImportant: log.isImportant,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 5,
+                    ),
+                    itemCount: _logs.length,
+                    itemBuilder: (context, index) {
+                      final log = _logs[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: LogCard(
+                          title: log.title,
+                          description: log.description ?? '',
+                          startTime: DateFormat.Hm().format(log.startTime),
+                          endTime: log.endTime != null
+                              ? DateFormat.Hm().format(log.endTime!)
+                              : '',
+                          effort: log.effort ?? 0,
+                          isImportant: log.isImportant,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ),
       ],
@@ -263,18 +271,15 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    const pageOptions = [
-      UserPage(),
-      AnalyticsPage(),
-      SettingsPage(),
-    ];
+    const pageOptions = [UserPage(), AnalyticsPage(), SettingsPage()];
 
     return Scaffold(
       appBar: appBar(
         context,
         onDestinationSelected: (index) {
           setState(() {
-            if (index == 0) { // Home
+            if (index == 0) {
+              // Home
               _drawerSelectedIndex = -1;
             } else {
               final pageIndex = index - 1;
@@ -293,8 +298,7 @@ class _CalendarPageState extends State<CalendarPage> {
           });
         },
         onLogout: () {
-          // TODO: Implement actual logout logic here
-          
+          // logout logic
         },
       ),
       backgroundColor: CustomColors.whiteSmoke,
@@ -303,22 +307,22 @@ class _CalendarPageState extends State<CalendarPage> {
           : pageOptions[_drawerSelectedIndex],
       floatingActionButton: _drawerSelectedIndex == -1
           ? Padding(
-        padding: const EdgeInsets.only(bottom: 30, right: 8),
-        child: SizedBox(
-          height: 65,
-          width: 65,
-          child: FloatingActionButton(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            onPressed: _openAddLogModal,
-            backgroundColor: CustomColors.orange,
-            foregroundColor: CustomColors.whiteSmoke,
-            child: const Icon(Icons.add, size: 28),
-          ),
-        ),
-      )
+              padding: const EdgeInsets.only(bottom: 30, right: 8),
+              child: SizedBox(
+                height: 65,
+                width: 65,
+                child: FloatingActionButton(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  onPressed: _openAddLogModal,
+                  backgroundColor: CustomColors.orange,
+                  foregroundColor: CustomColors.whiteSmoke,
+                  child: const Icon(Icons.add, size: 28),
+                ),
+              ),
+            )
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
@@ -342,4 +346,3 @@ class _CalendarPageState extends State<CalendarPage> {
     return months[month - 1];
   }
 }
-

@@ -80,7 +80,6 @@ class RightDrawer extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              // Use map with index to create ListTiles
               ..._destinations.asMap().entries.map((entry) {
                 final index = entry.key;
                 final dest = entry.value;
@@ -109,7 +108,6 @@ class RightDrawer extends StatelessWidget {
                 );
               }),
               const Spacer(),
-              //LOGOUT BTN
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 25,
@@ -156,7 +154,6 @@ class RightDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              //DIVIDER
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 10,
@@ -164,7 +161,6 @@ class RightDrawer extends StatelessWidget {
                 ),
                 child: const Divider(),
               ),
-              //VERSION TEXT
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -182,7 +178,6 @@ class RightDrawer extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 4),
-              //MADE BY TEXT
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
