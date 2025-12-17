@@ -30,7 +30,7 @@ class _AddLogFormState extends State<AddLogForm> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _effortController = TextEditingController();
   TimeOfDay _startTime = TimeOfDay.now();
-  TimeOfDay _endTime = TimeOfDay.fromDateTime(
+  final TimeOfDay _endTime = TimeOfDay.fromDateTime(
     DateTime.now().add(const Duration(hours: 1)),
   );
   bool isChecked = false;
@@ -52,7 +52,7 @@ class _AddLogFormState extends State<AddLogForm> {
           color: CustomColors.whiteSmoke,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
-        padding: EdgeInsets.symmetric(vertical: 25, horizontal: 30),
+        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.90,
         ),
@@ -72,7 +72,7 @@ class _AddLogFormState extends State<AddLogForm> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            //const SizedBox(height: 4),
             Expanded(
               child: SingleChildScrollView(
                 child: Form(
@@ -82,13 +82,9 @@ class _AddLogFormState extends State<AddLogForm> {
                       const SizedBox(height: 20),
                       Text(
                         'Log details',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       TextFormField(
                         controller: _titleController,
                         decoration: InputDecoration(
@@ -111,14 +107,10 @@ class _AddLogFormState extends State<AddLogForm> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 35),
+                      SizedBox(height: 25),
                       Text(
                         'Starting time',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                       SizedBox(height: 15),
                       TimePickerDropdown(
@@ -129,32 +121,28 @@ class _AddLogFormState extends State<AddLogForm> {
                         },
                         initialTime: _startTime,
                       ),
-                      SizedBox(height: 35),
-                      Text(
-                        'Ending time',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 15),
-                      TimePickerDropdown(
-                        onTimeSelected: (time) {
-                          setState(() {
-                            _endTime = time;
-                          });
-                        },
-                        initialTime: _endTime,
-                      ),
-                      SizedBox(height: 35),
+                      // SizedBox(height: 35),
+                      // Text(
+                      //   'Ending time',
+                      //   style: TextStyle(
+                      //     fontSize: 16,
+                      //     color: Colors.black,
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                      // SizedBox(height: 15),
+                      // TimePickerDropdown(
+                      //   onTimeSelected: (time) {
+                      //     setState(() {
+                      //       _endTime = time;
+                      //     });
+                      //   },
+                      //   initialTime: _endTime,
+                      // ),
+                      SizedBox(height: 25),
                       Text(
                         'Effort in minutes',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                       SizedBox(height: 15),
                       SizedBox(
@@ -163,7 +151,7 @@ class _AddLogFormState extends State<AddLogForm> {
                           controller: _effortController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            hintText: 'e.g. 60',
+                            hintText: 'es. 60',
                             border: OutlineInputBorder(),
                           ),
                           onChanged: (value) {
@@ -171,7 +159,7 @@ class _AddLogFormState extends State<AddLogForm> {
                           },
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -209,46 +197,44 @@ class _AddLogFormState extends State<AddLogForm> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 40),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            final newLog = {
-                              'title': _titleController.text.trim(),
-                              'description': _descriptionController.text.trim(),
-                              'start_time': _startTime,
-                              'end_time': _endTime,
-                              'effort':
-                                  int.tryParse(_effortController.text.trim()) ??
-                                  0,
-                              'is_important': isChecked,
-                            };
-
-                            Navigator.of(context).pop(newLog);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: CustomColors.orange,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 24,
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'SAVE',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: CustomColors.whiteSmoke,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    final newLog = {
+                      'title': _titleController.text.trim(),
+                      'description': _descriptionController.text.trim(),
+                      'start_time': _startTime,
+                      'end_time': _endTime,
+                      'effort':
+                          int.tryParse(_effortController.text.trim()) ?? 0,
+                      'is_important': isChecked,
+                    };
+
+                    Navigator.of(context).pop(newLog);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: CustomColors.orange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'SAVE',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: CustomColors.whiteSmoke,
+                      ),
+                    ),
                   ),
                 ),
               ),
