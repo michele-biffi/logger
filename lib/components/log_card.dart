@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:logger/colors.dart';
 
 class LogCard extends StatelessWidget {
@@ -35,19 +36,21 @@ class LogCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.access_time_rounded,
-                  size: 14,
-                  color: CustomColors.onyx.withAlpha(102),
+                Opacity(
+                  opacity: 50 / 255.0,
+                  child: HugeIcon(
+                    icon: HugeIcons.strokeRoundedClock01,
+                    size: 16,
+                    color: CustomColors.onyx,
+                  ),
                 ),
                 const SizedBox(width: 4),
                 Text(
                   // "$startTime - $endTime", before - to show both times
                   "started at $startTime",
                   style: TextStyle(
-                    color: CustomColors.onyx.withAlpha(102),
+                    color: CustomColors.onyx.withAlpha(50),
                     fontSize: 12,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Spacer(),
@@ -55,7 +58,7 @@ class LogCard extends StatelessWidget {
                   Icons.bookmark_rounded,
                   color: isImportant
                       ? CustomColors.orange
-                      : Colors.grey.shade400,
+                      : CustomColors.onyx.withAlpha(50),
                   size: 24,
                 ),
               ],
