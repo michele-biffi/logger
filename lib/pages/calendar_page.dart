@@ -170,8 +170,8 @@ class _CalendarPageState extends State<CalendarPage> {
                   availableCalendarFormats: const {CalendarFormat.week: ''},
                   rowHeight: 48,
                   daysOfWeekHeight: 30,
-                  firstDay: DateTime.utc(2020, 1, 1),
-                  lastDay: DateTime.utc(2030, 12, 31),
+                  firstDay: DateTime.utc(2025, 1, 1),
+                  lastDay: DateTime.utc(2035, 12, 31),
                   focusedDay: _focusedDay,
                   selectedDayPredicate: (day) {
                     return isSameDay(_selectedDay, day);
@@ -200,7 +200,10 @@ class _CalendarPageState extends State<CalendarPage> {
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: BoxDecoration(
-                      color: Colors.orange.shade900,
+                      border: BoxBorder.all(
+                        color: CustomColors.whiteSmoke,
+                        width: 1.5,
+                      ),
                       shape: BoxShape.circle,
                     ),
                     defaultTextStyle: const TextStyle(
@@ -231,7 +234,12 @@ class _CalendarPageState extends State<CalendarPage> {
                     ),
                   )
                 : _logs.isEmpty
-                ? const Center(child: Text("Nessun log per questo giorno"))
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 80),
+                      child: Text("Nessun log per questo giorno"),
+                    ),
+                  )
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(
                       vertical: 0,

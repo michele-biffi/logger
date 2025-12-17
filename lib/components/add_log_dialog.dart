@@ -6,7 +6,10 @@ Future<Map<String, dynamic>?> showAddLogModal(BuildContext context) {
   return showModalBottomSheet<Map<String, dynamic>>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.transparent,
+    backgroundColor: CustomColors.whiteSmoke,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
     builder: (context) {
       return Padding(
         padding: EdgeInsets.only(
@@ -45,202 +48,196 @@ class _AddLogFormState extends State<AddLogForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        decoration: BoxDecoration(
-          color: CustomColors.whiteSmoke,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.90,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Add a Log',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Icon(Icons.close, color: Colors.black, size: 28),
-                ),
-              ],
-            ),
-            //const SizedBox(height: 4),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Form(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20),
-                      Text(
-                        'Log details',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        controller: _titleController,
-                        decoration: InputDecoration(
-                          hintText: 'Title',
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 12,
-                          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.90,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Add a Log',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: const Icon(Icons.close, color: Colors.black, size: 28),
+              ),
+            ],
+          ),
+          //const SizedBox(height: 4),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Log details',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: const InputDecoration(
+                        hintText: 'Title',
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 12,
                         ),
                       ),
-                      SizedBox(height: 12),
-                      TextFormField(
-                        controller: _descriptionController,
-                        maxLines: 3,
-                        decoration: InputDecoration(
-                          hintText: 'Description',
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 12,
-                          ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _descriptionController,
+                      maxLines: 3,
+                      decoration: const InputDecoration(
+                        hintText: 'Description',
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 12,
                         ),
                       ),
-                      SizedBox(height: 25),
-                      Text(
-                        'Starting time',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      SizedBox(height: 15),
-                      TimePickerDropdown(
-                        onTimeSelected: (time) {
-                          setState(() {
-                            _startTime = time;
-                          });
+                    ),
+                    const SizedBox(height: 25),
+                    const Text(
+                      'Starting time',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    const SizedBox(height: 15),
+                    TimePickerDropdown(
+                      onTimeSelected: (time) {
+                        setState(() {
+                          _startTime = time;
+                        });
+                      },
+                      initialTime: _startTime,
+                    ),
+                    // SizedBox(height: 35),
+                    // Text(
+                    //   'Ending time',
+                    //   style: TextStyle(
+                    //     fontSize: 16,
+                    //     color: Colors.black,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 15),
+                    // TimePickerDropdown(
+                    //   onTimeSelected: (time) {
+                    //     setState(() {
+                    //       _endTime = time;
+                    //     });
+                    //   },
+                    //   initialTime: _endTime,
+                    // ),
+                    const SizedBox(height: 25),
+                    const Text(
+                      'Effort in minutes',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    const SizedBox(height: 15),
+                    SizedBox(
+                      width: 90,
+                      child: TextFormField(
+                        controller: _effortController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          hintText: 'es. 60',
+                          border: OutlineInputBorder(),
+                        ),
+                        onChanged: (value) {
+                          // salva effort
                         },
-                        initialTime: _startTime,
                       ),
-                      // SizedBox(height: 35),
-                      // Text(
-                      //   'Ending time',
-                      //   style: TextStyle(
-                      //     fontSize: 16,
-                      //     color: Colors.black,
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
-                      // SizedBox(height: 15),
-                      // TimePickerDropdown(
-                      //   onTimeSelected: (time) {
-                      //     setState(() {
-                      //       _endTime = time;
-                      //     });
-                      //   },
-                      //   initialTime: _endTime,
-                      // ),
-                      SizedBox(height: 25),
-                      Text(
-                        'Effort in minutes',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      SizedBox(height: 15),
-                      SizedBox(
-                        width: 90,
-                        child: TextFormField(
-                          controller: _effortController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: 'es. 60',
-                            border: OutlineInputBorder(),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Transform.scale(
+                          scale: 0.85,
+                          child: Switch(
+                            inactiveTrackColor: CustomColors.whiteSmoke,
+                            trackOutlineColor:
+                                WidgetStateProperty.resolveWith<Color?>((
+                              Set<WidgetState> states,
+                            ) {
+                              if (states.contains(WidgetState.selected)) {
+                                return null;
+                              }
+                              return Colors.black38;
+                            }),
+                            trackOutlineWidth: WidgetStateProperty.all(1),
+                            activeTrackColor: CustomColors.orange,
+                            value: isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isChecked = value ?? false;
+                              });
+                            },
                           ),
-                          onChanged: (value) {
-                            // salva effort
-                          },
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Transform.scale(
-                            scale: 0.85,
-                            child: Switch(
-                              inactiveTrackColor: CustomColors.whiteSmoke,
-                              trackOutlineColor:
-                                  WidgetStateProperty.resolveWith<Color?>((
-                                    Set<WidgetState> states,
-                                  ) {
-                                    if (states.contains(WidgetState.selected)) {
-                                      return null;
-                                    }
-                                    return Colors.black38;
-                                  }),
-                              trackOutlineWidth: WidgetStateProperty.all(1),
-                              activeTrackColor: CustomColors.orange,
-                              value: isChecked,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isChecked = value ?? false;
-                                });
-                              },
-                            ),
+                        const SizedBox(width: 8),
+                        const Text(
+                          'Important',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
                           ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Important',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    final newLog = {
-                      'title': _titleController.text.trim(),
-                      'description': _descriptionController.text.trim(),
-                      'start_time': _startTime,
-                      'end_time': _endTime,
-                      'effort':
-                          int.tryParse(_effortController.text.trim()) ?? 0,
-                      'is_important': isChecked,
-                    };
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  final newLog = {
+                    'title': _titleController.text.trim(),
+                    'description': _descriptionController.text.trim(),
+                    'start_time': _startTime,
+                    'end_time': _endTime,
+                    'effort':
+                        int.tryParse(_effortController.text.trim()) ?? 0,
+                    'is_important': isChecked,
+                  };
 
-                    Navigator.of(context).pop(newLog);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: CustomColors.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  Navigator.of(context).pop(newLog);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: CustomColors.orange,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Center(
-                    child: Text(
-                      'SAVE',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: CustomColors.whiteSmoke,
-                      ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
+                child: const Center(
+                  child: Text(
+                    'SAVE',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: CustomColors.whiteSmoke,
                     ),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
