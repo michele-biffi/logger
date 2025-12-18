@@ -86,6 +86,7 @@ class _CalendarPageState extends State<CalendarPage> {
         effort: newLogData['effort'],
         isImportant: newLogData['is_important'],
         createdAt: selectedDate,
+        tag: newLogData['tag'],
       );
 
       await _supabaseService.addLog(newLog);
@@ -259,6 +260,7 @@ class _CalendarPageState extends State<CalendarPage> {
                               : '',
                           effort: log.effort ?? 0,
                           isImportant: log.isImportant,
+                          tag: log.tag ?? '',
                         ),
                       );
                     },

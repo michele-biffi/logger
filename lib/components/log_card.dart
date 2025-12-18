@@ -9,6 +9,7 @@ class LogCard extends StatelessWidget {
   final String description;
   final int effort; // in minuti
   final bool isImportant;
+  final String tag;
 
   const LogCard({
     super.key,
@@ -18,6 +19,7 @@ class LogCard extends StatelessWidget {
     required this.description,
     required this.effort,
     required this.isImportant,
+    required this.tag,
   });
 
   @override
@@ -39,16 +41,19 @@ class LogCard extends StatelessWidget {
                 //TAG
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
+                    horizontal: 16,
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
+                    color: CustomColors.onyx.withAlpha(18),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    "ELITE",
-                    style: TextStyle(color: CustomColors.onyx, fontSize: 10),
+                    "SKYPASS",
+                    style: TextStyle(
+                      color: CustomColors.onyx.withAlpha(150),
+                      fontSize: 10,
+                    ),
                   ),
                 ),
                 const Spacer(),

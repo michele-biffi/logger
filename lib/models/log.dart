@@ -7,6 +7,7 @@ class Log {
   final int? effort;
   final bool isImportant;
   final DateTime createdAt;
+  final String? tag;
 
   Log({
     required this.id,
@@ -17,6 +18,7 @@ class Log {
     this.effort,
     required this.isImportant,
     required this.createdAt,
+    this.tag,
   });
 
   factory Log.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class Log {
       effort: json['effort'],
       isImportant: json['is_important'],
       createdAt: DateTime.parse(json['created_at']),
+      tag: json['tag'],
     );
   }
 
@@ -43,6 +46,7 @@ class Log {
       'effort': effort,
       'is_important': isImportant,
       'created_at': createdAt.toIso8601String(),
+      'tag': tag,
     };
   }
 }

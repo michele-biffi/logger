@@ -32,6 +32,7 @@ class _AddLogFormState extends State<AddLogForm> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _effortController = TextEditingController();
+  final TextEditingController _tagController = TextEditingController();
   TimeOfDay _startTime = TimeOfDay.now();
   final TimeOfDay _endTime = TimeOfDay.fromDateTime(
     DateTime.now().add(const Duration(hours: 1)),
@@ -43,6 +44,7 @@ class _AddLogFormState extends State<AddLogForm> {
     _titleController.dispose();
     _descriptionController.dispose();
     _effortController.dispose();
+    _tagController.dispose();
     super.dispose();
   }
 
@@ -156,6 +158,22 @@ class _AddLogFormState extends State<AddLogForm> {
                         },
                       ),
                     ),
+                    const SizedBox(height: 25),
+                    const Text(
+                      'Tags',
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      controller: _tagController,
+                      decoration: const InputDecoration(
+                        hintText: 'Select a tag',
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 12,
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -166,13 +184,13 @@ class _AddLogFormState extends State<AddLogForm> {
                             inactiveTrackColor: CustomColors.whiteSmoke,
                             trackOutlineColor:
                                 WidgetStateProperty.resolveWith<Color?>((
-                              Set<WidgetState> states,
-                            ) {
-                              if (states.contains(WidgetState.selected)) {
-                                return null;
-                              }
-                              return Colors.black38;
-                            }),
+                                  Set<WidgetState> states,
+                                ) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return null;
+                                  }
+                                  return Colors.black38;
+                                }),
                             trackOutlineWidth: WidgetStateProperty.all(1),
                             activeTrackColor: CustomColors.orange,
                             value: isChecked,
@@ -210,9 +228,9 @@ class _AddLogFormState extends State<AddLogForm> {
                     'description': _descriptionController.text.trim(),
                     'start_time': _startTime,
                     'end_time': _endTime,
-                    'effort':
-                        int.tryParse(_effortController.text.trim()) ?? 0,
+                    'effort': int.tryParse(_effortController.text.trim()) ?? 0,
                     'is_important': isChecked,
+                    'tag': _tagController.text.trim(),
                   };
 
                   Navigator.of(context).pop(newLog);
@@ -222,8 +240,10 @@ class _AddLogFormState extends State<AddLogForm> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 24,
+                  ),
                 ),
                 child: const Center(
                   child: Text(
