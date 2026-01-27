@@ -32,19 +32,27 @@ class _AddLogFormState extends State<AddLogForm> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _effortController = TextEditingController();
-  final TextEditingController _tagController = TextEditingController();
   TimeOfDay _startTime = TimeOfDay.now();
   final TimeOfDay _endTime = TimeOfDay.fromDateTime(
     DateTime.now().add(const Duration(hours: 1)),
   );
   bool isChecked = false;
 
+  final List<String> _availableTags = const [
+    'Work',
+    'Study',
+    'Personal',
+    'Health',
+    'Finance',
+    'Hobby',
+  ];
+  String? _selectedTag;
+
   @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
     _effortController.dispose();
-    _tagController.dispose();
     super.dispose();
   }
 
@@ -139,6 +147,7 @@ class _AddLogFormState extends State<AddLogForm> {
                     //   initialTime: _endTime,
                     // ),
                     const SizedBox(height: 25),
+                    //EFFORT
                     const Text(
                       'Effort in minutes',
                       style: TextStyle(fontSize: 16, color: Colors.black),
@@ -159,22 +168,50 @@ class _AddLogFormState extends State<AddLogForm> {
                       ),
                     ),
                     const SizedBox(height: 25),
+                    //TAGS
                     const Text(
                       'Tags',
                       style: TextStyle(fontSize: 16, color: Colors.black),
                     ),
                     const SizedBox(height: 15),
-                    TextFormField(
-                      controller: _tagController,
-                      decoration: const InputDecoration(
-                        hintText: 'Select a tag',
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 12,
+                    Container(
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black38),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Wrap(
+                          spacing: 15.0,
+                          runSpacing: 4.0,
+                          children: _availableTags.map((tag) {
+                            return ChoiceChip(
+                              backgroundColor: Colors.grey.shade300,
+                              label: Text(tag.toUpperCase()),
+                              labelStyle: TextStyle(
+                                fontSize: 12,
+                                color: CustomColors.onyx.withAlpha(150),
+                              ),
+                              side: BorderSide(color: Colors.transparent),
+                              selected: _selectedTag == tag,
+                              onSelected: (selected) {
+                                setState(() {
+                                  if (selected) {
+                                    _selectedTag = tag;
+                                  } else {
+                                    _selectedTag = null;
+                                  }
+                                });
+                              },
+                            );
+                          }).toList(),
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
+                    // IS IMPORTANT?
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -217,6 +254,7 @@ class _AddLogFormState extends State<AddLogForm> {
               ),
             ),
           ),
+          // SAVE BUTTON
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: SizedBox(
@@ -230,7 +268,7 @@ class _AddLogFormState extends State<AddLogForm> {
                     'end_time': _endTime,
                     'effort': int.tryParse(_effortController.text.trim()) ?? 0,
                     'is_important': isChecked,
-                    'tag': _tagController.text.trim(),
+                    'tag': _selectedTag,
                   };
 
                   Navigator.of(context).pop(newLog);
