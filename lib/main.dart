@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/colors.dart';
 import 'package:logger/pages/calendar_page.dart';
@@ -10,6 +11,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  
+  SystemChannels.textInput.invokeMethod('TextInput.hide');
+
   await dotenv.load(fileName: ".env");
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
