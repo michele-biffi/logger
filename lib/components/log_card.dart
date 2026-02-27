@@ -135,25 +135,3 @@ class LogCard extends StatelessWidget {
 //startTime,
 //style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
 //),
-
-//DIFFICULTY LEVEL TAG EXAMPLE
-// Container(
-//   padding: const EdgeInsets.symmetric(
-//     horizontal: 12,
-//     vertical: 6,
-//   ),
-//   //decoration: BoxDecoration(
-//   //color: Colors.grey.shade200,
-//   //borderRadius: BorderRadius.circular(8),
-//   //),
-//   child: Row(
-//     children: [
-//       Icon(Icons.circle, color: Colors.green, size: 12),
-//       const SizedBox(width: 6),
-//       Text(
-//         "Easy",
-//         style: TextStyle(color: Colors.green, fontSize: 12),
-//       ),
-//     ],
-//   ),
-// ),

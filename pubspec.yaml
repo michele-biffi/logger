@@ -45,13 +45,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -67,6 +63,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - .env
+     - assets/icons/
+     - assets/splash/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -93,3 +91,18 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/logger_logo.png"
+  remove_alpha_ios: true
+
+flutter_native_splash:
+  color: "#FF4F18"
+  image: assets/splash/logger_logo_no_bg.png
+  android: true
+  ios: true
+  android_12:
+    image: assets/splash/logger_logo_splash.png
+    icon_background_color: "#FF4F18"
