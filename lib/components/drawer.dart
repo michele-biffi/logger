@@ -42,11 +42,13 @@ class RightDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25),
                 child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
                   onTap: () {
                     onDestinationSelected(1);
                     Navigator.pop(context);
                   },
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       CircleAvatar(
                         radius: 28,
