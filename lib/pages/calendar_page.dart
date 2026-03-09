@@ -85,6 +85,7 @@ class _CalendarPageState extends State<CalendarPage> {
         endTime: endDateTime,
         effort: newLogData['effort'],
         isImportant: newLogData['is_important'],
+        tag: newLogData['tag'],
         createdAt: selectedDate,
       );
 
@@ -196,7 +197,7 @@ class _CalendarPageState extends State<CalendarPage> {
                       fontWeight: FontWeight.bold,
                     ),
                     todayDecoration: const BoxDecoration(
-                      color: CustomColors.whiteSmoke,
+                      color: Colors.white70,
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: BoxDecoration(
