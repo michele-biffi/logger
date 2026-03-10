@@ -272,7 +272,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    const pageOptions = [UserPage(), AnalyticsPage(), SettingsPage()];
+    final pageOptions = [UserPage(), const AnalyticsPage(), const SettingsPage()];
 
     return Scaffold(
       appBar: appBar(
@@ -312,7 +312,11 @@ class _CalendarPageState extends State<CalendarPage> {
               child: SizedBox(
                 height: 65,
                 width: 65,
-                child: FloatingActionButton(
+                child: 
+                
+                
+                
+                FloatingActionButton(
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),

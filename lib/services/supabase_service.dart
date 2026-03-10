@@ -1,8 +1,39 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/models/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseService {
   final SupabaseClient _client = Supabase.instance.client;
+
+  User? get currentUser => _client.auth.currentUser;
+
+  Stream<AuthState> get onAuthStateChange => _client.auth.onAuthStateChange;
+
+  Future<void> signInWithGoogle() async {
+    const webClientId = '1089707199746-rvddj1o6v612b0sq8jl7avnt3ejedumf.apps.googleusercontent.com';
+
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      serverClientId: webClientId,
+    );
+    
+    final googleUser = await googleSignIn.signIn();
+    final googleAuth = await googleUser?.authentication;
+
+    if (googleAuth?.idToken == null || googleAuth?.accessToken == null) {
+      throw 'No Google ID Token found.';
+    }
+
+    await _client.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: googleAuth!.idToken!,
+      accessToken: googleAuth.accessToken!,
+    );
+  }
+
+  Future<void> signOut() async {
+    await _client.auth.signOut();
+    await GoogleSignIn().signOut();
+  }
 
   Future<List<Log>> getLogsForDay(DateTime day) async {
     final startOfDay = DateTime(day.year, day.month, day.day);

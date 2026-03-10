@@ -186,7 +186,7 @@ class _AddLogFormState extends State<AddLogForm> {
                                 _selectedTag = selected ? tag : null;
                               });
                             },
-                            selectedColor: CustomColors.orange.withOpacity(0.2),
+                            selectedColor: CustomColors.orange.withValues(alpha: 0.2),
                             checkmarkColor: CustomColors.orange,
                             labelStyle: TextStyle(
                               color: isSelected
