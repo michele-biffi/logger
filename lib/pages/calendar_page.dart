@@ -114,6 +114,23 @@ class _CalendarPageState extends State<CalendarPage> {
     }
   }
 
+  Future<void> _handleLogout() async {
+    try {
+      await _supabaseService.signOut();
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Errore durante il logout: $error'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
+
   void _openAddLogModal() async {
     final result = await showAddLogModal(context);
     if (result != null) {
@@ -272,7 +289,11 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    final pageOptions = [UserPage(), const AnalyticsPage(), const SettingsPage()];
+    final pageOptions = [
+      UserPage(),
+      const AnalyticsPage(),
+      const SettingsPage(),
+    ];
 
     return Scaffold(
       appBar: appBar(
@@ -298,9 +319,7 @@ class _CalendarPageState extends State<CalendarPage> {
             _drawerSelectedIndex = -1;
           });
         },
-        onLogout: () {
-          // logout logic
-        },
+        onLogout: _handleLogout,
       ),
       backgroundColor: CustomColors.whiteSmoke,
       body: _drawerSelectedIndex == -1
@@ -312,11 +331,7 @@ class _CalendarPageState extends State<CalendarPage> {
               child: SizedBox(
                 height: 65,
                 width: 65,
-                child: 
-                
-                
-                
-                FloatingActionButton(
+                child: FloatingActionButton(
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),

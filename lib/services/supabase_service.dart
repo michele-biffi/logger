@@ -3,20 +3,18 @@ import 'package:logger/models/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseService {
+  static const _webClientId =
+      '1089707199746-rvddj1o6v612b0sq8jl7avnt3ejedumf.apps.googleusercontent.com';
+
   final SupabaseClient _client = Supabase.instance.client;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(serverClientId: _webClientId);
 
   User? get currentUser => _client.auth.currentUser;
 
   Stream<AuthState> get onAuthStateChange => _client.auth.onAuthStateChange;
 
   Future<void> signInWithGoogle() async {
-    const webClientId = '1089707199746-rvddj1o6v612b0sq8jl7avnt3ejedumf.apps.googleusercontent.com';
-
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      serverClientId: webClientId,
-    );
-    
-    final googleUser = await googleSignIn.signIn();
+    final googleUser = await _googleSignIn.signIn();
     final googleAuth = await googleUser?.authentication;
 
     if (googleAuth?.idToken == null || googleAuth?.accessToken == null) {
@@ -32,7 +30,7 @@ class SupabaseService {
 
   Future<void> signOut() async {
     await _client.auth.signOut();
-    await GoogleSignIn().signOut();
+    await _googleSignIn.signOut();
   }
 
   Future<List<Log>> getLogsForDay(DateTime day) async {
