@@ -6,6 +6,7 @@ class Log {
   final DateTime? endTime;
   final int? effort;
   final bool isImportant;
+  final String? tag;
   final DateTime createdAt;
 
   Log({
@@ -16,6 +17,7 @@ class Log {
     this.endTime,
     this.effort,
     required this.isImportant,
+    this.tag,
     required this.createdAt,
   });
 
@@ -30,6 +32,7 @@ class Log {
           : null,
       effort: json['effort'],
       isImportant: json['is_important'],
+      tag: json['tag'],
       createdAt: DateTime.parse(json['created_at']),
     );
   }
@@ -42,6 +45,7 @@ class Log {
       'end_time': endTime?.toIso8601String(),
       'effort': effort,
       'is_important': isImportant,
+      'tag': tag,
       'created_at': createdAt.toIso8601String(),
     };
   }

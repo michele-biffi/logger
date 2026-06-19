@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/colors.dart';
 import 'package:logger/components/custom_time_picker.dart';
+import 'package:logger/services/supabase_service.dart';
 
 Future<Map<String, dynamic>?> showAddLogModal(BuildContext context) {
   return showModalBottomSheet<Map<String, dynamic>>(
@@ -25,18 +26,78 @@ class AddLogForm extends StatefulWidget {
 }
 
 class _AddLogFormState extends State<AddLogForm> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _effortController = TextEditingController();
+  final SupabaseService _supabaseService = SupabaseService();
+
   TimeOfDay _startTime = TimeOfDay.now();
-  final TimeOfDay _endTime = TimeOfDay.fromDateTime(
-    DateTime.now().add(const Duration(hours: 1)),
-  );
   bool isChecked = false;
+  String? _selectedTag;
+  List<String> _availableTags = [];
+  bool _loadingTags = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTags();
+  }
+
+  Future<void> _loadTags() async {
+    final tags = await _supabaseService.getTags();
+    setState(() {
+      _availableTags = tags;
+      _loadingTags = false;
+    });
+  }
 
   void _hideKeyboard() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  Future<void> _showAddTagDialog() async {
+    final controller = TextEditingController();
+    final newTag = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'New Tag',
+          style: TextStyle(
+            color: CustomColors.onyx,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          textCapitalization: TextCapitalization.words,
+          decoration: const InputDecoration(hintText: 'Tag name'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cancel', style: TextStyle(color: CustomColors.onyx)),
+          ),
+          TextButton(
+            onPressed: () {
+              final val = controller.text.trim();
+              if (val.isNotEmpty) Navigator.of(context).pop(val);
+            },
+            child: Text('Add', style: TextStyle(color: CustomColors.orange)),
+          ),
+        ],
+      ),
+    );
+
+    if (newTag != null && !_availableTags.contains(newTag)) {
+      await _supabaseService.addTag(newTag);
+      setState(() {
+        _availableTags.add(newTag);
+        _selectedTag = newTag;
+      });
+    }
   }
 
   @override
@@ -53,12 +114,7 @@ class _AddLogFormState extends State<AddLogForm> {
     return GestureDetector(
       onTap: _hideKeyboard,
       child: Container(
-        padding: EdgeInsets.fromLTRB(
-          30,
-          30,
-          30,
-          30 + MediaQuery.of(context).viewInsets.bottom,
-        ),
+        padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
         height: MediaQuery.of(context).size.height * 0.90,
         child: Column(
           children: [
@@ -82,6 +138,7 @@ class _AddLogFormState extends State<AddLogForm> {
             Expanded(
               child: SingleChildScrollView(
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -100,6 +157,12 @@ class _AddLogFormState extends State<AddLogForm> {
                             horizontal: 12,
                           ),
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter a title';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
@@ -142,8 +205,98 @@ class _AddLogFormState extends State<AddLogForm> {
                             hintText: 'es. 60',
                             border: OutlineInputBorder(),
                           ),
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Required';
+                            }
+                            if (int.tryParse(value) == null) {
+                              return 'Invalid';
+                            }
+                            return null;
+                          },
                         ),
                       ),
+                      const SizedBox(height: 25),
+                      const Text(
+                        'Tag',
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                      const SizedBox(height: 12),
+                      _loadingTags
+                          ? const SizedBox(
+                              height: 32,
+                              child: Center(
+                                child: SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: [
+                                ..._availableTags.map((tag) {
+                                  final isSelected = _selectedTag == tag;
+                                  return ChoiceChip(
+                                    backgroundColor: CustomColors.alabasterGrey,
+                                    label: Text(tag),
+                                    selected: isSelected,
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        _selectedTag = selected ? tag : null;
+                                      });
+                                    },
+                                    selectedColor: CustomColors.orange
+                                        .withValues(alpha: 0.2),
+                                    checkmarkColor: CustomColors.orange,
+                                    labelStyle: TextStyle(
+                                      color: isSelected
+                                          ? CustomColors.orange
+                                          : Colors.black87,
+                                      fontWeight: isSelected
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      side: BorderSide(
+                                        color: isSelected
+                                            ? CustomColors.orange
+                                            : Colors.black12,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                                // Chip "+" per aggiungere tag custom
+                                ActionChip(
+                                  avatar: Icon(
+                                    Icons.add,
+                                    size: 16,
+                                    color: CustomColors.orange,
+                                  ),
+                                  label: Text(
+                                    'New',
+                                    style: TextStyle(
+                                      color: CustomColors.orange,
+                                    ),
+                                  ),
+                                  backgroundColor: CustomColors.alabasterGrey,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    side: BorderSide(
+                                      color: CustomColors.orange.withValues(
+                                        alpha: 0.4,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: _showAddTagDialog,
+                                ),
+                              ],
+                            ),
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -154,13 +307,13 @@ class _AddLogFormState extends State<AddLogForm> {
                               inactiveTrackColor: CustomColors.whiteSmoke,
                               trackOutlineColor:
                                   WidgetStateProperty.resolveWith<Color?>((
-                                Set<WidgetState> states,
-                              ) {
-                                if (states.contains(WidgetState.selected)) {
-                                  return null;
-                                }
-                                return Colors.black38;
-                              }),
+                                    Set<WidgetState> states,
+                                  ) {
+                                    if (states.contains(WidgetState.selected)) {
+                                      return null;
+                                    }
+                                    return Colors.black38;
+                                  }),
                               trackOutlineWidth: WidgetStateProperty.all(1),
                               activeTrackColor: CustomColors.orange,
                               value: isChecked,
@@ -182,46 +335,63 @@ class _AddLogFormState extends State<AddLogForm> {
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _hideKeyboard();
-                    final newLog = {
-                      'title': _titleController.text.trim(),
-                      'description': _descriptionController.text.trim(),
-                      'start_time': _startTime,
-                      'end_time': _endTime,
-                      'effort':
-                          int.tryParse(_effortController.text.trim()) ?? 0,
-                      'is_important': isChecked,
-                    };
-
-                    Navigator.of(context).pop(newLog);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: CustomColors.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'SAVE',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: CustomColors.whiteSmoke,
+                      const SizedBox(height: 30),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _hideKeyboard();
+                            if (_formKey.currentState!.validate()) {
+                              final newLog = {
+                                'title': _titleController.text.trim(),
+                                'description': _descriptionController.text
+                                    .trim(),
+                                'start_time': _startTime,
+                                'end_time': TimeOfDay.fromDateTime(
+                                  DateTime.now().add(
+                                    Duration(
+                                      minutes:
+                                          int.tryParse(
+                                            _effortController.text.trim(),
+                                          ) ??
+                                          0,
+                                    ),
+                                  ),
+                                ),
+                                'effort':
+                                    int.tryParse(
+                                      _effortController.text.trim(),
+                                    ) ??
+                                    0,
+                                'is_important': isChecked,
+                                'tag': _selectedTag,
+                              };
+                              Navigator.of(context).pop(newLog);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: CustomColors.orange,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 24,
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'SAVE',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: CustomColors.whiteSmoke,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
                 ),
               ),

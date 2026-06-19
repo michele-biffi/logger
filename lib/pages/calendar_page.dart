@@ -85,6 +85,7 @@ class _CalendarPageState extends State<CalendarPage> {
         endTime: endDateTime,
         effort: newLogData['effort'],
         isImportant: newLogData['is_important'],
+        tag: newLogData['tag'],
         createdAt: selectedDate,
       );
 
@@ -110,6 +111,23 @@ class _CalendarPageState extends State<CalendarPage> {
         );
       }
       debugPrint('Errore inserendo il log: $error');
+    }
+  }
+
+  Future<void> _handleLogout() async {
+    try {
+      await _supabaseService.signOut();
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Errore durante il logout: $error'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
     }
   }
 
@@ -196,7 +214,7 @@ class _CalendarPageState extends State<CalendarPage> {
                       fontWeight: FontWeight.bold,
                     ),
                     todayDecoration: const BoxDecoration(
-                      color: CustomColors.whiteSmoke,
+                      color: Colors.white70,
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: BoxDecoration(
@@ -271,7 +289,11 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    const pageOptions = [UserPage(), AnalyticsPage(), SettingsPage()];
+    final pageOptions = [
+      UserPage(),
+      const AnalyticsPage(),
+      const SettingsPage(),
+    ];
 
     return Scaffold(
       appBar: appBar(
@@ -297,9 +319,7 @@ class _CalendarPageState extends State<CalendarPage> {
             _drawerSelectedIndex = -1;
           });
         },
-        onLogout: () {
-          // logout logic
-        },
+        onLogout: _handleLogout,
       ),
       backgroundColor: CustomColors.whiteSmoke,
       body: _drawerSelectedIndex == -1
