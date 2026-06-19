@@ -50,4 +50,23 @@ class SupabaseService {
   Future<void> addLog(Log log) async {
     await _client.from('daily_logs').insert(log.toJson());
   }
+
+  Future<List<String>> getTags() async {
+    final response = await _client
+        .from('tags')
+        .select('name')
+        .order('is_default', ascending: false)
+        .order('name', ascending: true);
+    return (response as List).map((t) => t['name'] as String).toList();
+  }
+
+  Future<void> addTag(String name) async {
+    final userId = currentUser?.id;
+    if (userId == null) return;
+    await _client.from('tags').insert({
+      'name': name,
+      'user_id': userId,
+      'is_default': false,
+    });
+  }
 }

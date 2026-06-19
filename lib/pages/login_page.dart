@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/colors.dart';
 import 'package:logger/services/supabase_service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,9 +22,9 @@ class _LoginPageState extends State<LoginPage> {
       // Se il login ha successo, main.dart si accorgerà del cambio di stato
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Errore durante il login: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Errore durante il login: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -32,63 +33,58 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.whiteSmoke,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Logo o Icona
-              Image.asset(
-                'assets/icons/logger_logo.png',
-                height: 120,
-              ),
-              const SizedBox(height: 40),
-              const Text(
-                'Bentornato su Logger',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: CustomColors.onyx,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: CustomColors.orange,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: CustomColors.orange,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Logger',
+                  style: TextStyle(
+                    fontFamily: 'LogoFont',
+                    color: Colors.white,
+                    fontSize: 120,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Accedi per gestire i tuoi log giornalieri',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-              const SizedBox(height: 50),
-              
-              if (_isLoading)
-                const CircularProgressIndicator(color: CustomColors.orange)
-              else
-                ElevatedButton.icon(
-                  onPressed: _handleGoogleSignIn,
-                  icon: const FaIcon(FontAwesomeIcons.google, color: Colors.white, size: 20),
-                  label: const Text(
-                    'Accedi con Google',
-                    style: TextStyle(
+                const SizedBox(height: 40),
+
+                if (_isLoading)
+                  const CircularProgressIndicator(
+                    color: CustomColors.whiteSmoke,
+                  )
+                else
+                  ElevatedButton.icon(
+                    onPressed: _handleGoogleSignIn,
+                    icon: const FaIcon(
+                      FontAwesomeIcons.google,
                       color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      size: 18,
+                    ),
+                    label: const Text(
+                      'Sign in with Google',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      minimumSize: const Size(double.infinity, 56),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: const BorderSide(color: Colors.white, width: 1),
+                      ),
+                      elevation: 0,
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: CustomColors.orange,
-                    minimumSize: const Size(double.infinity, 56),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 2,
-                  ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
